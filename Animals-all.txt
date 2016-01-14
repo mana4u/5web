@@ -2,3 +2,7 @@ parrot_ben
 horses_ben
 snake_ben
 halibut_ben
+Robin_Junghan
+Salmon_Junghan
+Human_Junghan
+Lizard_Junghan
