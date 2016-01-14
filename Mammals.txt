@@ -1,3 +1,7 @@
 Mammals:
 horse_Ben
+<<<<<<< HEAD
 Monkey_Ahyoung
+=======
+Human_Junghan
+>>>>>>> origin/master
