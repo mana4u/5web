@@ -10,4 +10,7 @@ Robin_Junghan
 Salmon_Junghan
 Human_Junghan
 Lizard_Junghan
-
+turtle_alisa
+catfish_alisa
+eagle_alisa
+dog_alisa
