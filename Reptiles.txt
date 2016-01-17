@@ -1,5 +1,0 @@
-Reptiles:
-Snake_Ben
-Lizard_Junghan
-Alligator_Ahyoung
-Turtle_Alisa

@@ -1,5 +1,0 @@
-Mammals:
-horse_Ben
-Monkey_Ahyoung
-Human_Junghan
-Dog_Alisa
