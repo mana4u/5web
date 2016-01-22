@@ -1,0 +1,80 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+font-family: "trebuchet ms", verdana, sans-serif;
+font-size: 12px;
+line-height: 1.5em;
+color: #333;
+background: #FEFDE0;
+margin: 0;
+padding: 0;
+text-align: center;
+width: 100%;
+}
+p {
+margin-top: 10px;
+}
+a:link {
+text-decoration: none;
+color: #000;
+}
+a:visited {
+text-decoration: none;
+border-bottom: 1px dotted #369;
+color: #000;
+}
+
+a:hover, a:active {
+text-decoration: none;
+border-bottom: 1px solid #036;
+color: #000;
+}
+img {
+border: 0;
+}
+
+#container {
+position: absolute;
+top: 205px;
+left: 150px;
+background: #FEFDE0;
+margin: 0 auto 0 auto;
+text-align: left;
+width: 70%;
+height: 70%;
+}
+#menu {
+font-family: "trebuchet ms", verdana, sans-serif;
+font-size: 14px;
+font-weight: bold;
+position: absolute;
+height: 30px;
+top: 160px;
+left: 0px;
+width: 100%;
+padding: 0px;
+color: #000000;
+background-color: #eee
+}
+#header {
+position: absolute;
+top: 0px;
+left: 0px;
+height: 175px;
+width: 100%;
+background: black;
+padding-top: 8px;
+}
+#header h1 {
+font-size: 30px;
+text-transform: uppercase;
+letter-spacing: 0.3em;
+color: #fff;
+}
+#main {
+margin: 15px 15px 15px 240px;
+padding: 15px 15px 15px 15px;
+background: #FEFDE0;
+}
+
