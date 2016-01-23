@@ -13,8 +13,8 @@ require("config.php");
         <img src='./images/header.jpg'>
     </div>
     <div id="menu">
-        <a href="<?php echo $config_basedir; ?>index.php">Home</a> -
-		<a href="">About me</a> -
+        <a href="<?php echo $config_basedir; ?>home.php">Home</a> -
+        <a href="<?php echo $config_basedir; ?>index.php">About me</a> -
         <a href="<?php echo $config_basedir; ?>products.php">Shop</a> -
         <a href="<?php echo $config_basedir;?>showcart.php">Shopping Cart</a> -
         <?php
