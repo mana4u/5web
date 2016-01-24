@@ -33,7 +33,7 @@ else
     }
     echo "</select></td>";
     echo "<td><strong>$". sprintf('%.2f', $prodrow['price']) . "</strong></td>";
-    echo "<td><input type='submit' name='submit' value='Add to basket'></td>";
+    echo "<td><input type='submit' name='submit' value='Add to Cart'></td>";
     echo "</tr>";
     echo "</table>";
     echo "</form>";
