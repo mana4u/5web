@@ -7,20 +7,25 @@ require("header.php");
     <head>
         <meta http-equiv="refresh">
         <title>Home</title>
-
+		<style>
+		a:link, a:hover, a:active, a:visited {
+			text-decoration: none;
+			border-bottom: none;
+			}
+		</style>
     </head>
     
     <body>
         
         <table cellpadding="1">
             <tr>
-                <td style="padding-left:20px;padding-right:20px;"><a href="https://www.facebook.com/EFTDorothy?ref=br_rs">
+                <td style="padding-left: 20px;padding-right: 20px;"><a href="https://www.facebook.com/EFTDorothy?ref=br_rs">
                         <img src="./images/facebook.jpg" alt="Link to Dorothy's facebook page" width="100" height="50"</a></td>
-                <td style="padding-left:20px;padding-right:20px;"><a href="https://www.youtube.com/channel/UCT2BE3NbSFZPZpYKja4EM5g">
+                <td style="padding-left: 20px;padding-right: 20px;"><a href="https://www.youtube.com/channel/UCT2BE3NbSFZPZpYKja4EM5g">
                         <img src="./images/youtube.jpg" alt="Link to Dorothy's youtube page" width="100" height="50"</a></td>
-                <td style="padding-left:20px;padding-right:20px;"><a href="https://twitter.com/eftdorothy">
+                <td style="padding-left: 20px;padding-right: 20px;"><a href="https://twitter.com/eftdorothy">
                         <img src="./images/twitter.png" alt="Link to Dorothy's Twitter page" width="100" height="50"</a></td>         
-                <td style="padding-left:20px;padding-right:20px;"><a href="https://www.linkedin.com/in/dorothybiagioni">
+                <td style="padding-left: 20px;padding-right: 20px;"><a href="https://www.linkedin.com/in/dorothybiagioni">
                         <img src="./images/LI.png" alt="Link to Dorothy's LinkedIn page" width="100" height="50"</a></td>
             </tr>
         </table>
@@ -29,6 +34,7 @@ require("header.php");
 	<h2>Current Freebie:</h2>
     </body>
 </html>
+
 <?php
 $prodcatsql = "SELECT * FROM products WHERE freebie = 1";
 $prodcatres = mysqli_query($mysqli,$prodcatsql) or die(mysqli_error($mysqli));
@@ -63,25 +69,24 @@ else
 }
 
 if(!isset($_SESSION['SESS_LOGGEDIN'])){
-//echo "<html>";
-//echo "<body>";
+echo "<html>";
+echo "<body>";
 echo "<br/>";
 echo "<h2>Sign up for our newsletter</h2>";
 echo "<p>receive weekly E-mails from Dorothy about the latest news and offers!</p>";
-echo "<form action='login.php' method='POST'>";
+echo "<form action='addEmail.php' method='POST'>";
 echo "<table>";
 echo "<tr>";
-echo "<td>Email</td>";
-echo "<td><input type='textbox' name='email'>";
+echo "<td><strong>Email</strong></td>";
+echo "<td><input type='textbox' name='emailN' id='emailN'></td>";
 echo "</tr>";
 echo "<tr>";
-echo "<td></td>";
-echo "<td><input type='submit' name='submit' value='Sign Up'>";
+echo "<td><input type='submit' name='submitN' value='Sign Up'></td>";
 echo "</tr>";
 echo "</table>";
 echo "</form>";
-//echo "</body>";
-//echo "</html>";
+echo "</body>";
+echo "</html>";
 }
 else{
 }
