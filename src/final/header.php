@@ -8,7 +8,7 @@ require("config.php");
     <title><?php echo $config_sitename; ?></title>
     <link href="css/stylesheet.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body>	
     <div id="header">
         <img src='./images/header.jpg'>
     </div>
@@ -21,10 +21,15 @@ require("config.php");
         if(!isset($_SESSION['SESS_LOGGEDIN'])) {
         echo "<a href=login.php>Log In</a> " ;
         }
-        if(isset($_SESSION['SESS_LOGGEDIN'])) {
-        echo "  <a href=logout.php>Log Out</a> " ;
-        }
+	if(isset($_SESSION['SESS_LOGGEDIN'])) {
+        echo "  <a href=myaccount.php>My Account</a> " ;
+	}
         ?>
+	<?php
+	if(isset($_SESSION['SESS_LOGGEDIN'])) {
+        echo " - <a href=logout.php>Log Out</a> " ;
+        }
+	?>
     </div>
     <div id="container">
     <div id="main">
