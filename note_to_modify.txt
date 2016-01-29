@@ -1,0 +1,40 @@
+All//
+1. add validation form
+
+Home///
+1. social media button (make it smaller and locate in header)
+2. could be multiple freebee, but not sure which 
+3. playing one video at home? introducing herself whatever video for now
+4. email validation
+
+About me///
+1. create one more table, picture left side or right side
+2. contact form below
+
+Shop/// [John]
+1. table color
+2. product page
+
+Register///
+1. create checkbox for newsletter subscription. 
+and add one more column at customer table
+2. make registering button noticeble
+
+Shopping cart///
+1. pay with paypal, make as button
+2. update button
+
+Login page///
+1. forgot password? button, random generator
+
+User page/// [Ahyoung]
+2. change user information to change password
+3. back button
+4. should able to modify first name, last name
+5. delete chan make it all one
+6. ge rid of subscription info
+
+What we haven't implemented yet///
+1. admin page?????
+2. appointment schedule
+Chcke the time how long did you spend for each page?
