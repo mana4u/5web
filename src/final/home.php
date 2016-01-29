@@ -7,12 +7,6 @@ require("header.php");
     <head>
         <meta http-equiv="refresh">
         <title>Home</title>
-		<style>
-		a:link, a:hover, a:active, a:visited {
-			text-decoration: none;
-			border-bottom: none;
-			}
-		</style>
     </head>
     
     <body>

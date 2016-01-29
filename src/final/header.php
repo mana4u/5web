@@ -16,12 +16,12 @@ require("config.php");
         <a href="<?php echo $config_basedir; ?>home.php">Home</a> -
         <a href="<?php echo $config_basedir; ?>index.php">About me</a> -
         <a href="<?php echo $config_basedir; ?>products.php">Shop</a> -
-        <a href="<?php echo $config_basedir;?>showcart.php">Shopping Cart</a> -
         <?php
         if(!isset($_SESSION['SESS_LOGGEDIN'])) {
         echo "<a href=login.php>Log In</a> " ;
         }
 	if(isset($_SESSION['SESS_LOGGEDIN'])) {
+		echo "<a href=showcart.php>Shopping Cart</a> -";
         echo "  <a href=myaccount.php>My Account</a> " ;
 	}
         ?>
