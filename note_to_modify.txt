@@ -3,8 +3,8 @@ All//
 
 Home///
 1. social media button (make it smaller and locate in header) [Alisa]
-2. could be multiple freebee, but not sure which 
-3. playing one video at home? introducing herself whatever video for now
+2. could be multiple freebee, but not sure which [Ben - complete]
+3. playing one video at home? introducing herself whatever video for now [Ben]
 4. email validation [Alisa]
 
 About me/// [Alisa]

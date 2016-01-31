@@ -24,7 +24,7 @@ require("header.php");
             </tr>
         </table>
         <h1>Home</h1>
-        <p>Welcome to DorothyBiagioni.com, home of Dorothy///////////////</p><br/>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/dEOSwrxwpcU" frameborder="0" allowfullscreen></iframe>
 	<h2>Current Freebie:</h2>
     </body>
 </html>
