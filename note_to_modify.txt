@@ -4,7 +4,7 @@ All//
 Home///
 1. social media button (make it smaller and locate in header) [Alisa]
 2. could be multiple freebee, but not sure which [Ben - complete]
-3. playing one video at home? introducing herself whatever video for now [Ben]
+3. playing one video at home? introducing herself whatever video for now [Ben - complete]
 4. email validation [Alisa]
 
 About me/// [Alisa]
@@ -24,7 +24,7 @@ Shopping cart///
 1. pay with paypal, make as button
 2. update button
 
-Login page///
+Login page/// [Ben]
 1. forgot password? button, random generator
 
 User page/// [Ahyoung]
