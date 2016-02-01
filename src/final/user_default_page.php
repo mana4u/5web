@@ -35,7 +35,7 @@ width:200px;
 float:left;
 border: 1px solid #66ccff;
 padding-top: 0px;
-padding-right: 0px;s
+padding-right: 0px;
 padding-botton:0px;
 padding-left:0px;
 }

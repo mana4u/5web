@@ -57,7 +57,11 @@ if(isset($_GET['error']))
         </tr>
         <tr>
             <td></td>
-            <td><input type="submit" name="submit" value="Log in">
+            <td><input type="submit" name="submit" value="Log in"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><a href="forgot.php">Forgot Password</a></td>
         </tr>
     </table>
 </form>
