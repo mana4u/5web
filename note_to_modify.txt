@@ -2,20 +2,20 @@ All//
 1. add validation form
 
 Home///
-1. social media button (make it smaller and locate in header) [Alisa]
+1. social media button (make it smaller and locate in header) [Alisa done kinda]
 2. could be multiple freebee, but not sure which 
 3. playing one video at home? introducing herself whatever video for now
-4. email validation [Alisa]
+4. email validation [Alisa done]
 
 About me/// [Alisa]
-1. create one more table, picture left side or right side
-2. contact form below
+1. create one more table, picture left side or right side [need help don't know where to put it??]
+2. contact form below (done but doesn't work)
 
 Shop/// [John]
 1. table color
 2. product page
 
-Register/// [Alisa]
+Register/// [Alisa done] 
 1. create checkbox for newsletter subscription.  
 and add one more column at customer table
 2. make registering button noticeble

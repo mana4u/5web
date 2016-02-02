@@ -11,18 +11,6 @@ require("header.php");
     
     <body>
         
-        <table cellpadding="1">
-            <tr>
-                <td style="padding-left: 20px;padding-right: 20px;"><a href="https://www.facebook.com/EFTDorothy?ref=br_rs">
-                        <img src="./images/facebook.jpg" alt="Link to Dorothy's facebook page" width="100" height="50"</a></td>
-                <td style="padding-left: 20px;padding-right: 20px;"><a href="https://www.youtube.com/channel/UCT2BE3NbSFZPZpYKja4EM5g">
-                        <img src="./images/youtube.jpg" alt="Link to Dorothy's youtube page" width="100" height="50"</a></td>
-                <td style="padding-left: 20px;padding-right: 20px;"><a href="https://twitter.com/eftdorothy">
-                        <img src="./images/twitter.png" alt="Link to Dorothy's Twitter page" width="100" height="50"</a></td>         
-                <td style="padding-left: 20px;padding-right: 20px;"><a href="https://www.linkedin.com/in/dorothybiagioni">
-                        <img src="./images/LI.png" alt="Link to Dorothy's LinkedIn page" width="100" height="50"</a></td>
-            </tr>
-        </table>
         <h1>Home</h1>
         <p>Welcome to DorothyBiagioni.com, home of Dorothy///////////////</p><br/>
 	<h2>Current Freebie:</h2>

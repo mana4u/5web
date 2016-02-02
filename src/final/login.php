@@ -36,7 +36,11 @@ if(isset($_POST['submit']))
 		require("header.php");?>
 		
 <h1>Customer Login</h1>
-Please enter your username and password to log into the websites. If you do not have an account, you can get one for free by <a href="apply.php">registering</a>.
+
+Log in              Don't have an account, sign up it's free  
+
+<a class="button" href="apply.php"><button>Register</button></a> 
+
 <p>
 <?php
 if(isset($_GET['error'])) 
@@ -49,7 +53,7 @@ if(isset($_GET['error']))
     <table>
         <tr>
             <td>Email</td>
-            <td><input type="textbox" name="email">
+            <td><input type="email" name="email">
         </tr>
         <tr>
             <td>Password</td>

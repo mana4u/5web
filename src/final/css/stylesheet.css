@@ -116,9 +116,19 @@ text-transform: uppercase;
 letter-spacing: 0.3em;
 color: #fff;
 }
+
 #main {
 margin: 15px 15px 15px 240px;
 padding: 15px 15px 15px 15px;
 background: #FEFDE0;
 }
 
+#socialMedia {
+	margin-left: 68%;
+	margin-top: 0.7%;
+}
+
+#socialMedia img {
+	width: 40px;
+	padding-left: 5px;
+}
