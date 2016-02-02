@@ -1,7 +1,6 @@
 <?php
 session_start();
 require("config.php");
-
 ?>
 <!DOCTYPE HTML>
 <head>
@@ -10,29 +9,20 @@ require("config.php");
 	
 </head>
 <body>	
-
+ 
     <div id="header">
-        <img src='./images/header.jpg'>
-	
+        <img src='./images/header.jpg' usemap="#logos">
+		<map name="logos">
+			<area shape="rect" coords="673,96,730,150" href="https://www.facebook.com/EFTDorothy?ref=br_rs" title="Facebook" alt="Facebook" />
+			<area shape="rect" coords="752,96,810,150" href="https://www.youtube.com/channel/UCT2BE3NbSFZPZpYKja4EM5g" title="Youtube" alt="Youtube" />
+			<area shape="rect" coords="830,96,883,150" href="https://twitter.com/eftdorothy" title="Twitter" alt="Twitter" />
+			<area shape="rect" coords="906,96,963,150" href="https://www.linkedin.com/in/dorothybiagioni" title="Linkedin" alt="Linkedin" />
+		</map>
     </div>
-	<div id="socialMedia" style="position:absolute">
-		 <table id="sMediaTable" cellpadding="1">
-            <tr>
-                <td ><a target="_blank" href="https://www.facebook.com/EFTDorothy?ref=br_rs">
-                        <img src="./images/facebook.png" alt="Link to Dorothy's facebook page"</a></td>
-                <td ><a target="_blank" href="https://www.youtube.com/channel/UCT2BE3NbSFZPZpYKja4EM5g">
-                        <img src="./images/youtube.png" alt="Link to Dorothy's youtube page"</a></td>
-                <td ><a target="_blank" href="https://twitter.com/eftdorothy">
-                        <img src="./images/twitter.png" alt="Link to Dorothy's Twitter page"</a></td>         
-                <td ><a target="_blank" href="https://www.linkedin.com/in/dorothybiagioni">
-                        <img src="./images/LI.png" alt="Link to Dorothy's LinkedIn page"</a></td>
-            </tr>
-        </table>
-	</div>
 	
     <div id="menu">
-        <a href="<?php echo $config_basedir; ?>home.php">Home</a> -
-        <a href="<?php echo $config_basedir; ?>index.php">About me</a> -
+        <a href="<?php echo $config_basedir; ?>index.php">Home</a> -
+        <a href="<?php echo $config_basedir; ?>about.php">About me</a> -
         <a href="<?php echo $config_basedir; ?>products.php">Shop</a> -
         <?php
         if(!isset($_SESSION['SESS_LOGGEDIN'])) {

@@ -5,7 +5,6 @@ if(isset($_SESSION['SESS_LOGGEDIN']))
 {
 header("Location: index.php");
 }
-
 if(isset($_POST['submit']))
 	{
 	$loginsql = "SELECT id, firstName, lastName FROM customers WHERE email = '".filter_input(INPUT_POST,'email').
@@ -30,18 +29,12 @@ if(isset($_POST['submit']))
 			header("Location: http://" .$_SERVER['HTTP_HOST']. $_SERVER['SCRIPT_NAME'] . "?error=1");
 		}
 	}
-
 	else
 	{
-		require("header.php");?>
-		
-<h1>Customer Login</h1>
-
-Log in              Don't have an account, sign up it's free  
-
-<a class="button" href="apply.php"><button>Register</button></a> 
-
-<p>
+		require("header.php");?>	
+	
+	<h1>Customer Login</h1>
+	Don't have an account, sign up it's free <a href="apply.php"><button>Register</button></a> 
 <?php
 if(isset($_GET['error'])) 
 {
@@ -76,5 +69,4 @@ if(isset($_SESSION['SESS_LOGGEDIN']))
 {
 header("Location: index.php");
 }
-require("footer.php");
 ?>

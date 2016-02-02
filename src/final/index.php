@@ -1,73 +1,76 @@
 <?php
 require("header.php");
 ?>
-	<h2>Kickstart 2016!   <p>
-	Make this YOUR year - filled with everything you have ever wanted. Give yourself a Gift of Life.</h2><p>
-	Is your Life less than what you desire?  Less than what you dream of? <p>
 
-	Have you experienced Betrayal? (betrayal from a love partner, business partner, family member, friend, co-worker...)  Are you living from Restrictive Self-Vows? Self-Loathing? Silent Shame?  Are you tired of feeling less than... are you tired of living in mental/emotional poverty, money poverty, health poverty? Have you given up on ever achieving and living the Life you desire?   This could include; Love, Money, Career, Business, Marriage and Romance, Weight - too high or too low, Athletic Achievement, Low Self-Acceptance?<p>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="refresh">
+        <title>Home</title>
+    </head>
+    
+    <body>
+        
+        <h1>Home</h1>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/dEOSwrxwpcU" frameborder="0" allowfullscreen></iframe>
+	<h2>Current Freebie:</h2>
+    </body>
+</html>
 
-	Wouldn't you just love to live your Life without carrying the "secrets" the "drudge" of whatever it is that is holding you back?  Sure you would.  And I can help you with your Transformation.  Even if you have no clear memory of what it is that has you locked up, we can "unlock" you<p>
+<?php
+$prodcatsql = "SELECT * FROM products WHERE freebie = 1";
+$prodcatres = mysqli_query($mysqli,$prodcatsql) or die(mysqli_error($mysqli));
+$numrows = mysqli_num_rows($prodcatres);
 
+if($numrows == 0)
+{
+    echo "<h1>No products</h1>";
+    echo "There are no products in this category.";
+}
 
-
-	<div class="container">
-<!-- Feedback Form Starts Here -->
-<div id="feedback">
-<!-- Heading Of The Form -->
-<div class="head">
-<h3>FeedBack Form</h3>
-<p>Ask me any question!</p>
-</div>
-<!-- Feedback Form -->
-<form action="#" id="form" method="post" name="form">
-<input name="vname" placeholder="Your Name" type="text" value=""></br>
-<input name="vemail" placeholder="Your Email" type="text" value=""></br>
-<input name="sub" placeholder="Subject" type="text" value=""></br>
-<textarea name="msg" placeholder="Type your text here..."></textarea></br>
-<input id="send" name="submit" type="submit" value="Send Feedback">
-</form>
-</div>
-<!-- Feedback Form Ends Here -->
-</div>
+else
 	
-	
-	<?php
-if(isset($_POST["submit"])){
-// Checking For Blank Fields..
-if($_POST["vname"]==""||$_POST["vemail"]==""||$_POST["sub"]==""||$_POST["msg"]==""){
-echo "Fill All Fields..";
-}else{
-// Check if the "Sender's Email" input field is filled out
-$email=$_POST['vemail'];
-// Sanitize E-mail Address
-$email =filter_var($email, FILTER_SANITIZE_EMAIL);
-// Validate E-mail Address
-$email= filter_var($email, FILTER_VALIDATE_EMAIL);
-if (!$email){
-echo "Invalid Sender's Email";
+{
+    echo "<table cellpadding='10'>";
+    while($prodrow = mysqli_fetch_assoc($prodcatres))
+    {
+        echo "<tr>";
+        if(!empty($prodrow['image'])) 
+        {
+            echo "<td><img src='./images/" . $prodrow['image']. "' alt='". $prodrow['name'] . "'></td>";
+		}
+		echo "<td>";
+    echo "<form action='addtobasket.php?id=". $prodrow['id'] . "' method='POST'>";
+    echo "</form>";
+    echo "<h2>" . $prodrow['name'] . "</h2>";
+    echo "<p>" . $prodrow['description']. "</p>";
+	echo "</td>";
+	echo "</tr>";
+	}
+	echo "</table>";
+}
+
+if(!isset($_SESSION['SESS_LOGGEDIN'])){
+echo "<html>";
+echo "<body>";
+echo "<br/>";
+echo "<h2>Sign up for our newsletter</h2>";
+echo "<p>receive weekly E-mails from Dorothy about the latest news and offers!</p>";
+echo "<form action='addEmail.php' method='POST'>";
+echo "<table>";
+echo "<tr>";
+echo "<td><strong>Email</strong></td>";
+echo "<td><input type='textbox' name='emailN' id='emailN'></td>";
+echo "</tr>";
+echo "<tr>";
+echo "<td><input type='submit' name='submitN' value='Sign Up'></td>";
+echo "</tr>";
+echo "</table>";
+echo "</form>";
+echo "</body>";
+echo "</html>";
 }
 else{
-$subject = $_POST['sub'];
-$message = $_POST['msg'];
-$headers = 'From:'. $email . "\r\n"; // Sender's Email
-$headers .= 'Cc:'. $email . "\r\n"; // Carbon copy to Sender
-// Message lines should not exceed 70 characters (PHP rule), so wrap it
-$message = wordwrap($message, 70);
-// Send Mail By PHP Mail Function
-mail("kimpossible014@gmail.com", $subject, $message, $headers);
-echo "Your mail has been sent successfuly ! Thank you for your feedback";
 }
-}
-}
-?>
-	
-	
-
-	<?php
 require("footer.php");
 ?>
-
-
-
-		

@@ -28,18 +28,19 @@ if(isset($_POST['submit'])){
 	    echo '<input  type="submit" name="submit" value="Search"> ';
 	    echo '</form></td></table>';
 	
-    echo "<table cellpadding='10'>";
+    echo "<table width='60%' cellpadding='10'>";
     while($prodrow = mysqli_fetch_assoc($prodcatres))
     {
+		echo "<tr align='left' ><td width='20%'>";
         if(empty($prodrow['image'])) {
-		echo "<td><img src='./images/dummy.jpg' alt='". $prodrow['name'] . "'></td>";
+		echo "<td><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/dummy.jpg' alt='". $prodrow['name'] . "'></a></td>";
 		}	
 		else {
-		echo "<td><img src='./images/" . $prodrow['image']. "' alt='". $prodrow['name'] . "'></td>";
+		echo "<td><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/" . $prodrow['image']. "' alt='". $prodrow['name'] . "'></a></td>";
 		}
     echo "<td>";
     echo "<form action='addtobasket.php?id=". $prodrow['id'] . "' method='POST'>";
-    echo "<h2>" . $prodrow['name'] . "</h2>";
+	echo "<a href='./item.php?id=". $prodrow['id'] . "'><h2>" . $prodrow['name'] . "</h2></a>";
     echo "<p>" . $prodrow['description'];
     echo "<table cellpadding='10'>";
     echo "<tr>";
@@ -95,19 +96,19 @@ else
 	    echo '<input  type="submit" name="submit" value="Search"> ';
 	    echo '</form></td></table>';
 	
-    echo "<table cellpadding='10'>";
+    echo "<table width='60%' cellpadding='10'>";
     while($prodrow = mysqli_fetch_assoc($prodcatres))
     {
-        echo "<tr>";
+        echo "<tr align='left' ><td width='20%'>";
         if(empty($prodrow['image'])) {
-		echo "<td><img src='./images/dummy.jpg' alt='". $prodrow['name'] . "'></td>";
+		echo "<td><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/dummy.jpg' alt='". $prodrow['name'] . "'></a></td>";
 		}	
 		else {
-		echo "<td><img src='./images/" . $prodrow['image']. "' alt='". $prodrow['name'] . "'></td>";
+		echo "<td><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/" . $prodrow['image']. "' alt='". $prodrow['name'] . "'></a></td>";
 		}
     echo "<td>";
     echo "<form action='addtobasket.php?id=". $prodrow['id'] . "' method='POST'>";
-    echo "<h2>" . $prodrow['name'] . "</h2>";
+    echo "<a href='./item.php?id=". $prodrow['id'] . "'><h2>" . $prodrow['name'] . "</h2></a>";
     echo "<p>" . $prodrow['description'];
     echo "<table cellpadding='10'>";
     echo "<tr>";
