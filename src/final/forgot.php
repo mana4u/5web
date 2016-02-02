@@ -1,31 +1,26 @@
 <?php
 require("header.php");
-if(isset($_SESSION['SESS_LOGGEDIN']))
-{
+
+if(isset($_SESSION['SESS_LOGGEDIN'])){
 header("Location: index.php");
 }
 
 if(isset($_POST['submit'])){
         $email_rec = $_POST['email'];
-        $recoverysql = "SELECT * from FROM customers WHERE email = '".filter_input(INPUT_POST,'email').
-                    "';";
+        $recoverysql = "SELECT * FROM customers WHERE email = '$email_rec';";
         $recoveryres = mysqli_query($mysqli,$recoverysql) or die(mysqli_error($mysqli));
 	$numrows = mysqli_num_rows($recoveryres);
-		if($numrows == 1)
-		{
-                    echo("<script>alert('Thank you, an email has been sent to $email_rec);</script>");
-                    header("Location: login.php");
-                } else {
-                    echo("<script>alert('Account not found, please try again);</script>");
-                    header("Location: forgot.php");
-                }
+        if($numrows > 0){
+            //insert email stuff here
+            echo("<h3>Thank you, a message has been sent to $email_rec</h3>");
+        } else {
+            echo("<h3>Email not found, please try again</h3>");
+        }
 }
 ?>
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Password Recovery</title>
-    </head>
     <body>
         <h3>Password Recovery</h3>
         <p>Please enter the email address used for your account, a message will be sent to this email with instructions to reset your password</p> 
