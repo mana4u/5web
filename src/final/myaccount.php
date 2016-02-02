@@ -1,13 +1,48 @@
 <?php
-session_start();
-require("header.php");
 require("config.php");
+require("user_default_page.php");
 
-$usersql = "SELECT * From customers WHERE id = ". $_SESSION['SESS_USERID'];
-$userres = mysqli_query($mysqli,$usersql) or die(mysqli_error($mysqli));
-$userrow = mysqli_fetch_assoc($userres);
+if(isset($_POST['submit'])){
+    if ((filter_input(INPUT_POST, 'firstname'))
+	&& (filter_input(INPUT_POST, 'lastname'))
+	&& (!filter_input(INPUT_POST, 'password1'))
+	&& (!filter_input(INPUT_POST, 'password2'))
+	&& (!filter_input(INPUT_POST, 'password3')))
+	{
+	$fname = filter_input(INPUT_POST, 'firstname');
+        $lname = filter_input(INPUT_POST, 'lastname');
 
+	$sql = "UPDATE customers SET firstName= '".$fname."', lastName= '".$lname."' WHERE id = ". $_SESSION['SESS_USERID'];
+        $query = $mysqli->query($sql);
+	
+	echo("<script>alert('Thank you, your information has been changed!');</script>");
+	echo("<script>location.href = 'myaccount.php';</script>");
+	mysqli_close($mysqli);
+	}
+    else if ((filter_input(INPUT_POST, 'firstname'))
+	&& (filter_input(INPUT_POST, 'lastname'))
+	&& (filter_input(INPUT_POST, 'password1'))
+	&& (filter_input(INPUT_POST, 'password2'))
+	&& (filter_input(INPUT_POST, 'password3')))
+	{
+	$fname = filter_input(INPUT_POST, 'firstname');
+        $lname = filter_input(INPUT_POST, 'lastname');
+        $password_new = filter_input(INPUT_POST, 'password3');
 
+	$sql = "UPDATE customers SET firstName= '".$fname."', lastName= '".$lname."', 
+		password= PASSWORD('" .$password_new. "') WHERE id = ". $_SESSION['SESS_USERID'];
+        $query = $mysqli->query($sql);
+	
+	echo("<script>alert('Thank you, your information has been changed!');</script>");
+	echo("<script>location.href = 'myaccount.php';</script>");
+	mysqli_close($mysqli);
+	}
+    else{
+	echo("<script>alert('Please fill all information');</script>");
+        echo("<script>location.href = 'myaccount.php';</script>");
+	}
+}
+	
 ?>
 
 <!DOCTYPE html>
@@ -17,12 +52,18 @@ $userrow = mysqli_fetch_assoc($userres);
 
 label{
 float: left;
-width: 120px;
+width: 180px;
+font-weight: bold;
+}
+
+label2{
+float: left;
+width: 100px;
 font-weight: bold;
 }
 
 input, textarea{
-width: 180px;
+width: 150px;
 margin-bottom: 5px;
 }
 
@@ -59,38 +100,14 @@ width:400px;
 float:left;
 padding:10px;
 }
-#nav_myaccount{
-font-family: "trebuchet ms", verdana, sans-serif;
-font-size: 12px;
-background-color:#cceeff;
-height:350px;
-width:200px;
-float:left;
-border: 1px solid #66ccff;
-padding-top: 0px;
-padding-right: 0px;
-padding-botton:0px;
-padding-left:0px;
-}
+
 </style>
 
 <body>
- <div id="nav_myaccount">
-  <img src='./images/monster.jpg', alt="edit-user" style="width:50px;height:50px; position:absolute; top:40px; left:265px">
-      <div style= "font-size: 12px; font-weight: bold; color: black; position: absolute; top:45px; left:325px;">editing-user</div>
-      <div style= "font-size: 15px; font-weight: bold; color: #004466; position: absolute; top:65px; left:325px;"><?php echo $userrow['firstName'].$userrow['lastName'];?></div>
-      <img src='./images/user-details2.png', alt="user-details" style= "position:absolute; top:105px; left:238px">
-      <div style= "font-size: 15px; font-weight: bold; color: #004466; position: absolute; top:135px; left:265px;">main-user-info</div>
-  
-      <div style= "color: #004466; position: absolute; top:160px; left:270px;"><a href="home.php"><u>Change User Information</u></a></div>
-      <div style= "color: #004466; position: absolute; top:185px; left:270px;"><a href="home.php"><u>Purchase History</u></a></div>
-      <div style= "color: #004466; position: absolute; top:210px; left:270px;"><a href="home.php"><u>Downloads</u></a></div>
-
-      <div style= "font-size: 15px; font-weight: bold; color: #004466; position: absolute; top:240px; left:265px;">subscription-info</div>
-      <div style= "color: #004466; position: absolute; top:265px; left:270px;"><a href="home.php"><u>Membership</u></a></div>
-      <div style= "color: #004466; position: absolute; top:290px; left:270px;"><a href="home.php"><u>Newsletter</u></a></div>
-
- </div>
+ 
+<?php if(isset($error)): ?>
+            <h2><?php echo $error; ?></h2>
+        <?php endif; ?>
  
 <div id="text_myaccount">
 	
@@ -100,52 +117,80 @@ padding-left:0px;
 <div style= "font-size: 15px; color: #004466; position: relative; top:5px; left:20px;"><u>Identification</u></div>
 
 <div style="position: relative; top:-5px; left:25px;">
-<form>
+
+<form action="" method="post">
+
 <br />
 <div style= "position: relative; top:5px; left:0px;">
-<label for="user">First name:</label>
-<label for="user"><?php echo $userrow['firstName'];?></label>
+<label for="emailaddress">Email Address:</label>
+<label for="user"><?php echo $userrow['email'];?></label>
 </div>
 <br />
 
 <div style= "position: relative; top:10px; left:0px;">
+<label for="user">First name:</label>
+<label><input type="text" name="firstname" id="firstname" value= "<?php echo $userrow['firstName'];?>"/></label>
+</div>
+<br />
+
+<div style= "position: relative; top:8px; left:0px;">
 <label for="user">Last name:</label>
-<label for="user"><?php echo $userrow['lastName'];?></label>
+<label><input type="text" name="lastname" id="lastname" value= "<?php echo $userrow['lastName'];?>"/></label>
 </div>
 <br />
 
-<div style= "position: relative; top:15px; left:0px;">
-<label for="emailaddress">Email Address:</label>
-<label for="emailaddress"><?php echo $userrow['email'];?></label>
-</div>
-<br />
+<div style= "font-size: 15px; color: #004466; position: relative; top:20px; left:-5px;"><u>Change Password</u></div>
 
-<div style= "position: relative; top:20px; left:0px;">
-<label for="password">Password:</label>
-<button type="changebutton" value="Submit">Change password</button>
-</div>
-<br />
-
-<div style= "font-size: 15px; color: #004466; position: relative; top:20px; left:-5px;"><u>Subscription</u></div>
-<br />
+<div style="position: relative; top:15px; left:0px;">
 <br />
 <div style= "position: relative; top:0px; left:0px;">
-<label for="membership">Membership:</label>
-<label for="user">Inactive</label>
-<div style= "position: relative; top:0px; left:-60px;">
-<button type="activate" value="Submit">Change</button>
+<label for="user">Please enter current password:</label>
+<label><input type="password" name="password1" id="password1" /></label>
 </div>
-</div>
-
-<div style= "position: relative; top:5px; left:0px;">
-<label for="newsletter">Newsletter:</label>
-<label for="user">Inactive</label>
-<div style= "position: relative; top:0px; left:-60px;">
-<button type="activate" value="Submit">Change</button>
-</div>
-</div>
-
 <br />
+
+<div style="position: relative; top:-20px; left:0px;">
+<br />
+<div style= "position: relative; top:0px; left:0px;">
+<label for="user">Please enter new password:</label>
+<label><input type="password" name="password2" id="password2" /></label>
+</div>
+<br />
+
+<div style="position: relative; top:-20px; left:0px;">
+<br />
+<div style= "position: relative; top:-0px; left:0px;">
+<label for="user">Please re-enter new password:</label>
+<label><input type="password" name="password3" id="password3" /></label>
+</div>
+
+
+<div style= "font-size: 15px; color: #004466; position: relative; top:10px; left:-5px;"><u>Subscription</u></div>
+<br />
+<br />
+<div style= "position: relative; top:-10px; left:0px;">
+<label for="membership">Membership:</label>
+<select>
+   <option value="active">Active</option>
+   <option value="Inactive">Inactive</option>
+</select>
+</div>
+
+<div style= "position: relative; top:-5px; left:0px;">
+<label for="newsletter">Newsletter:</label>
+<select>
+   <option value="active">Active</option>
+   <option value="Inactive">Inactive</option>
+</select>
+</div>
+<br />
+
+<div style= "position: relative; top:0px; left:0px;">
+<input type="submit" name="submit" value="Change my info" />
+</div>
+<div style= "position: relative; top:-26px; left:155px;">
+<button type="cancel">Cancel</button>
+</div>
 
 </form>
 </div>

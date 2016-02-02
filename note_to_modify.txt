@@ -2,10 +2,17 @@ All//
 1. add validation form
 
 Home///
+<<<<<<< HEAD
 1. social media button (make it smaller and locate in header) [Alisa done kinda]
 2. could be multiple freebee, but not sure which 
 3. playing one video at home? introducing herself whatever video for now
 4. email validation [Alisa done]
+=======
+1. social media button (make it smaller and locate in header) [Alisa]
+2. could be multiple freebee, but not sure which [Ben - complete]
+3. playing one video at home? introducing herself whatever video for now [Ben - complete]
+4. email validation [Alisa]
+>>>>>>> origin/master
 
 About me/// [Alisa]
 1. create one more table, picture left side or right side [need help don't know where to put it??]
@@ -24,7 +31,7 @@ Shopping cart///
 1. pay with paypal, make as button
 2. update button
 
-Login page///
+Login page/// [Ben]
 1. forgot password? button, random generator
 
 User page/// [Ahyoung]
