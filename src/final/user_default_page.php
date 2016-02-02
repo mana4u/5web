@@ -7,25 +7,13 @@ $usersql = "SELECT * From customers WHERE id = ". $_SESSION['SESS_USERID'];
 $userres = mysqli_query($mysqli,$usersql) or die(mysqli_error($mysqli));
 $userrow = mysqli_fetch_assoc($userres);
 
-
-
 ?>
 
 <!DOCTYPE html>
 <html>
 
 <style>
-a:link, a:hover, a:active, a:visited {
-text-decoration: none;
-border-bottom: none;
-color: #004466;
-}
-.doubleUnderline {
-    font-family: "trebuchet ms", verdana, sans-serif;
-    font-size: 20px;
-    text-decoration:underline;
-    border-bottom: 1px solid #000;
-}
+
 #nav_myaccount{
 font-family: "trebuchet ms", verdana, sans-serif;
 font-size: 12px;
@@ -35,9 +23,15 @@ width:200px;
 float:left;
 border: 1px solid #66ccff;
 padding-top: 0px;
-padding-right: 0px;
+padding-right: 0px;s
 padding-botton:0px;
 padding-left:0px;
+
+.nav_myaccount a:link {
+text-decoration: none;
+border-bottom: none;
+color: #004466;
+}
 }
 
 </style>
