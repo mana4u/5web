@@ -3,14 +3,16 @@ require("config.php");
 require("user_default_page.php");
 
 if(isset($_POST['submit'])){
-    if ((filter_input(INPUT_POST, 'firstname'))
-	&& (filter_input(INPUT_POST, 'lastname'))
+
+    if ((filter_input(INPUT_POST, 'field_username1'))
+	&& (filter_input(INPUT_POST, 'field_username2'))
 	&& (!filter_input(INPUT_POST, 'password1'))
-	&& (!filter_input(INPUT_POST, 'password2'))
-	&& (!filter_input(INPUT_POST, 'password3')))
+	&& (!filter_input(INPUT_POST, 'field_pwd1'))
+	&& (!filter_input(INPUT_POST, 'field_pwd2')))
 	{
-	$fname = filter_input(INPUT_POST, 'firstname');
-        $lname = filter_input(INPUT_POST, 'lastname');
+   
+	$fname = filter_input(INPUT_POST, 'field_username1');
+        $lname = filter_input(INPUT_POST, 'field_username2');
 
 	$sql = "UPDATE customers SET firstName= '".$fname."', lastName= '".$lname."' WHERE id = ". $_SESSION['SESS_USERID'];
         $query = $mysqli->query($sql);
@@ -19,15 +21,24 @@ if(isset($_POST['submit'])){
 	echo("<script>location.href = 'myaccount.php';</script>");
 	mysqli_close($mysqli);
 	}
-    else if ((filter_input(INPUT_POST, 'firstname'))
-	&& (filter_input(INPUT_POST, 'lastname'))
+
+        else if ((filter_input(INPUT_POST, 'field_username1'))
+	&& (filter_input(INPUT_POST, 'field_username2'))
 	&& (filter_input(INPUT_POST, 'password1'))
-	&& (filter_input(INPUT_POST, 'password2'))
-	&& (filter_input(INPUT_POST, 'password3')))
+	&& (filter_input(INPUT_POST, 'field_pwd1'))
+	&& (filter_input(INPUT_POST, 'field_pwd2')))
 	{
-	$fname = filter_input(INPUT_POST, 'firstname');
-        $lname = filter_input(INPUT_POST, 'lastname');
-        $password_new = filter_input(INPUT_POST, 'password3');
+
+	$password_old = filter_input(INPUT_POST, 'password1');
+	$password_match = "SELECT password from CUSTOMERS where id = ". $_SESSION['SESS_USERID'];
+	if(password_old != password_match){
+	echo("<script>alert('Password not matching!');</script>");
+	echo("<script>location.href = 'myaccount.php';</script>");
+	}
+
+	$fname = filter_input(INPUT_POST, 'field_username1');
+        $lname = filter_input(INPUT_POST, 'field_username2');
+        $password_new = filter_input(INPUT_POST, 'field_pwd2');
 
 	$sql = "UPDATE customers SET firstName= '".$fname."', lastName= '".$lname."', 
 		password= PASSWORD('" .$password_new. "') WHERE id = ". $_SESSION['SESS_USERID'];
@@ -42,65 +53,12 @@ if(isset($_POST['submit'])){
         echo("<script>location.href = 'myaccount.php';</script>");
 	}
 }
-	
+
 ?>
 
 <!DOCTYPE html>
 <html>
-
 <style type="text/css">
-
-label{
-float: left;
-width: 180px;
-font-weight: bold;
-}
-
-label2{
-float: left;
-width: 100px;
-font-weight: bold;
-}
-
-input, textarea{
-width: 150px;
-margin-bottom: 5px;
-}
-
-textarea{
-width: 250px;
-height: 150px;
-}
-
-.boxes{
-width: 1em;
-}
-
-#changebutton{
-margin-left: 100px;
-margin-top: 5px;
-width: 120px;
-}
-
-#cancelbutton{
-margin-left: 220px;
-margin-top: 5px;
-width: 90px;
-}
-
-br{
-clear: left;
-}
-
-
-#text_myaccount{
-font-family: "trebuchet ms", verdana, sans-serif;
-font-size: 12px;
-width:400px;
-float:left;
-padding:10px;
-}
-
 </style>
 
 <body>
@@ -109,88 +67,42 @@ padding:10px;
             <h2><?php echo $error; ?></h2>
         <?php endif; ?>
  
-<div id="text_myaccount">
-	
- <div style= "font-size: 15px; font-weight: bold; color: #000000; position: relative; top:10px; left:20px;">User page</div>
- <img src='./images/line-myaccount2.png', alt="line-myaccount" style= "position:relative; top:0px; left:20px">
+<div style= "position: relative; top:10px; left:30px;">
 
-<div style= "font-size: 15px; color: #004466; position: relative; top:5px; left:20px;"><u>Identification</u></div>
+<form id="myForm" action="" method="post">
+<h3>Identification</h3>
+<p>Email Address: <?php echo $userrow['email'];?> </p>
+<p>First name: <input type="text" name="username" id="field_username1" title="Firstname must not be blank and contain only letters, numbers and underscores." required pattern="\w+"
+value= "<?php echo $userrow['firstName'];?>"/></p>
 
-<div style="position: relative; top:-5px; left:25px;">
+<P>Last name: <input type="text" name="username" id="field_username2" title="Lastname must not be blank and contain only letters, numbers and underscores." required pattern="\w+"
+value= "<?php echo $userrow['lastName'];?>"/></p>
 
-<form action="" method="post">
+<h3>Change Password</h3>
+<p>Please enter new password: <input id="field_pwd1" title="Password must contain at least 6 characters, including UPPER/lowercase and numbers." type="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="pwd1"></p>
+<p>Please re-enter new password: <input id="field_pwd2" title="Please enter the same Password as above." type="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" name="pwd2"></p>
 
-<br />
-<div style= "position: relative; top:5px; left:0px;">
-<label for="emailaddress">Email Address:</label>
-<label for="user"><?php echo $userrow['email'];?></label>
-</div>
-<br />
+<h3>Subscription</h3>
 
-<div style= "position: relative; top:10px; left:0px;">
-<label for="user">First name:</label>
-<label><input type="text" name="firstname" id="firstname" value= "<?php echo $userrow['firstName'];?>"/></label>
-</div>
-<br />
-
-<div style= "position: relative; top:8px; left:0px;">
-<label for="user">Last name:</label>
-<label><input type="text" name="lastname" id="lastname" value= "<?php echo $userrow['lastName'];?>"/></label>
-</div>
-<br />
-
-<div style= "font-size: 15px; color: #004466; position: relative; top:20px; left:-5px;"><u>Change Password</u></div>
-
-<div style="position: relative; top:15px; left:0px;">
-<br />
-<div style= "position: relative; top:0px; left:0px;">
-<label for="user">Please enter current password:</label>
-<label><input type="password" name="password1" id="password1" /></label>
-</div>
-<br />
-
-<div style="position: relative; top:-20px; left:0px;">
-<br />
-<div style= "position: relative; top:0px; left:0px;">
-<label for="user">Please enter new password:</label>
-<label><input type="password" name="password2" id="password2" /></label>
-</div>
-<br />
-
-<div style="position: relative; top:-20px; left:0px;">
-<br />
-<div style= "position: relative; top:-0px; left:0px;">
-<label for="user">Please re-enter new password:</label>
-<label><input type="password" name="password3" id="password3" /></label>
-</div>
-
-
-<div style= "font-size: 15px; color: #004466; position: relative; top:10px; left:-5px;"><u>Subscription</u></div>
-<br />
-<br />
-<div style= "position: relative; top:-10px; left:0px;">
-<label for="membership">Membership:</label>
+<p>Membership:
 <select>
    <option value="active">Active</option>
    <option value="Inactive">Inactive</option>
 </select>
-</div>
+</p>
 
-<div style= "position: relative; top:-5px; left:0px;">
-<label for="newsletter">Newsletter:</label>
+<p>Newsletter:
 <select>
    <option value="active">Active</option>
    <option value="Inactive">Inactive</option>
 </select>
-</div>
-<br />
+</p>
 
-<div style= "position: relative; top:0px; left:0px;">
+
 <input type="submit" name="submit" value="Change my info" />
-</div>
-<div style= "position: relative; top:-26px; left:155px;">
 <button type="cancel">Cancel</button>
-</div>
+
+
 
 </form>
 </div>
