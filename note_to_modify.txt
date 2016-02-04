@@ -34,7 +34,7 @@ Shopping cart///
 Login page/// [Ben]
 1. forgot password? button, random generator
 
-User page/// [Ahyoung]
+User page/// [Ahyoung]-Anyone please help to modify, its going weird...
 2. change user information to change password
 3. back button
 4. should able to modify first name, last name
