@@ -1,18 +1,11 @@
 All//
 1. add validation form
+2. buy now button
 
 Home///
-<<<<<<< HEAD
-1. social media button (make it smaller and locate in header) [Alisa done kinda]
-2. could be multiple freebee, but not sure which 
-3. playing one video at home? introducing herself whatever video for now
-4. email validation [Alisa done]
-=======
-1. social media button (make it smaller and locate in header) [Alisa]
-2. could be multiple freebee, but not sure which [Ben - complete]
-3. playing one video at home? introducing herself whatever video for now [Ben - complete]
-4. email validation [Alisa]
->>>>>>> origin/master
+1. add Smedia buttons for instagram and tumblr
+2. email validation [Alisa]
+3. add number [1] at phone number [John]
 
 About me/// [Alisa]
 1. create one more table, picture left side or right side [need help don't know where to put it??]
@@ -22,26 +15,29 @@ Shop/// [John]
 1. table color
 2. product page
 
-Register/// [Alisa done] 
-1. create checkbox for newsletter subscription.  
-and add one more column at customer table
-2. make registering button noticeble
-
 Shopping cart///
 1. pay with paypal, make as button
-2. update button
+2. buy now
 
 Login page/// [Ben]
 1. forgot password? button, random generator
 
-User page/// [Ahyoung]-Anyone please help to modify, its going weird...
-2. change user information to change password
-3. back button
-4. should able to modify first name, last name
-5. delete chan make it all one
-6. ge rid of subscription info
+User page/// [Ahyoung]
+1. create seperae pw change page
+
+admin page///
+1. add products [Ben]
+
+auto make email system work///
+1.first register
+2.forgot password
+3.after purchasing
+
+E-Blast//
+1.create a sending an email page
+2.
 
 What we haven't implemented yet///
-1. admin page?????
 2. appointment schedule
 Chcke the time how long did you spend for each page?
+backup options
