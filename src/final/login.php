@@ -18,7 +18,7 @@ if(isset($_POST['submit']))
 		$_SESSION['SESS_LOGGEDIN'] = 1;
 		$_SESSION['SESS_USERNAME'] = $loginrow['firstName'];
 		$_SESSION['SESS_USERID'] = $loginrow['id'];
-		$ordersql = "SELECT id FROM orders WHERE customer_id = " . $_SESSION['SESS_USERID'];
+		$ordersql = "SELECT id FROM orders WHERE Paid =0 and customer_id = " . $_SESSION['SESS_USERID'];
 		$orderres = mysqli_query($mysqli,$ordersql) or die(mysqli_error($mysqli));
 		$orderrow = mysqli_fetch_assoc($orderres);
 		$_SESSION['SESS_ORDERNUM'] = $orderrow['id'];
