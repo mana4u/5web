@@ -1,6 +1,6 @@
 All//
 1. add validation form
-2. buy now button
+2. buy now button [john]
 
 Home///
 1. add Smedia buttons for instagram and tumblr
@@ -28,7 +28,7 @@ User page/// [Ahyoung]
 admin page///
 1. add products [Ben]
 
-auto make email system work///
+auto make email system work/// [Alisa]
 1.first register
 2.forgot password
 3.after purchasing
