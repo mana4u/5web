@@ -20,7 +20,8 @@ if(isset($_POST['submit']))
 	$itemsql = "INSERT INTO orderitems(order_id, product_id, quantity) VALUES(". $_SESSION['SESS_ORDERNUM']. ", " . $_GET['id'] . ", ". $_POST['amountBox'] . ")";
 	mysqli_query($mysqli,$itemsql) or die(mysqli_error($mysqli));	
 	}
-	else{
+	else
+	{
 		echo("<script>alert('Please Login first')</script>");
 		echo("<script>window.location = 'login.php';</script>");
 	}

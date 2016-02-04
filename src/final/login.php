@@ -26,7 +26,19 @@ if(isset($_POST['submit']))
 		}
 		else
 		{
+			$adminloginsql = "SELECT * FROM admin WHERE email = '".filter_input(INPUT_POST,'email').
+                    "' AND password = "."PASSWORD('".filter_input(INPUT_POST,'password')."');";
+			$adminloginres = mysqli_query($mysqli,$adminloginsql) or die(mysqli_error($mysqli));
+			$adminnumrows = mysqli_num_rows($adminloginres);
+			if($adminnumrows == 1)
+			{
+			$_SESSION['SESS_ADMINLOGGEDIN'] = 1;
+			header("Location: " . $config_basedir);
+			}
+			else
+			{
 			header("Location: http://" .$_SERVER['HTTP_HOST']. $_SERVER['SCRIPT_NAME'] . "?error=1");
+			}
 		}
 	}
 	else
@@ -66,6 +78,10 @@ if(isset($_GET['error']))
 <?php 
 } 
 if(isset($_SESSION['SESS_LOGGEDIN']))
+{
+header("Location: index.php");
+}
+if(isset($_SESSION['SESS_ADMINLOGGEDIN']))
 {
 header("Location: index.php");
 }

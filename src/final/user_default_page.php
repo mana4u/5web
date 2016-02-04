@@ -45,7 +45,7 @@ color: #004466;
       <div style= "font-size: 15px; font-weight: bold; color: #004466; position: absolute; top:135px; left:435px;">main-user-info</div>
   
       <div style= "color: #004466; position: absolute; top:160px; left:420px;"><a href="myaccount.php"><u>Change User Information</u></a></div>
-      <div style= "color: #004466; position: absolute; top:185px; left:420px;"><a href="myaccount.php"><u>Purchase History</u></a></div>
+      <div style= "color: #004466; position: absolute; top:185px; left:420px;"><a href="history.php"><u>Purchase History</u></a></div>
       <div style= "color: #004466; position: absolute; top:210px; left:420px;"><a href="myaccount.php"><u>Downloads</u></a></div>
 
 

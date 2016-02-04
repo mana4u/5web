@@ -3,8 +3,21 @@ session_start();
 require("header.php");
 if(isset($_SESSION['SESS_LOGGEDIN']))
 {
+	if(isset($_POST['paypalsubmit']))
+	{
+		
+		$upsql = "UPDATE orders SET Paid = 1 WHERE id = " . $_SESSION['SESS_ORDERNUM'];
+		$upres = mysqli_query($mysqli,$upsql) or die(mysqli_error($mysqli));
+		$itemssql = "SELECT total FROM orders WHERE id = " . $_SESSION['SESS_ORDERNUM'];
+		unset($_SESSION['SESS_ORDERNUM']);
+		$itemsres = mysqli_query($mysqli,$itemssql) or die(mysqli_error($mysqli));
+		$row = mysqli_fetch_assoc($itemsres);
+		header("Location: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=you%40youraddress.com&item_name=". urlencode($config_sitename)
+		. "+Order&item_number=PROD" . $row['id']."&amount=" . urlencode(sprintf('%.2f',$row['total'])) . "&no_note=1&currency_code=USD&lc=US&submit.x=41&submit.y=15");
+	}
+	
 	$total = 0;
-    $custsql = "SELECT id from orders WHERE customer_id = ". $_SESSION['SESS_USERID'];
+    $custsql = "SELECT id from orders WHERE Paid = 0 AND customer_id = ". $_SESSION['SESS_USERID'];
     $custres = mysqli_query($mysqli,$custsql) or die(mysqli_error($mysqli));
 	$custnumrows = mysqli_num_rows($custres);
 	if($custnumrows != 0)
@@ -61,8 +74,8 @@ if(isset($_SESSION['SESS_LOGGEDIN']))
         echo "<td></td>";
         echo "</tr>";
         echo "</table>";
-        echo "<p><h2><a href='https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=kmana4u%40gmmail.com&item_name=". urlencode($config_sitename)
-        . "+Order&item_number=PROD" . $_SESSION['SESS_USERID']."&amount=" . urlencode(sprintf('%.2f',$total)) . "&no_note=1&currency_code=CAD&lc=US&submit.x=41&submit.y=15'>Pay with PayPal</a></h2></p>";
+        echo "<p><h2><form action='showcart.php' method='POST'><input type='submit' name='paypalsubmit' value='Pay with PayPal'></form>
+		<a href=>Pay with PayPal</a></h2></p>";
         require("footer.php");
     }
 }

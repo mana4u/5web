@@ -25,16 +25,19 @@ require("config.php");
         <a href="<?php echo $config_basedir; ?>about.php">About me</a> -
         <a href="<?php echo $config_basedir; ?>products.php">Shop</a> -
         <?php
-        if(!isset($_SESSION['SESS_LOGGEDIN'])) {
+        if(!isset($_SESSION['SESS_LOGGEDIN']) && !isset($_SESSION['SESS_ADMINLOGGEDIN'])) {
         echo "<a href=login.php>Log In</a> " ;
         }
 	if(isset($_SESSION['SESS_LOGGEDIN'])) {
 		echo "<a href=showcart.php>Shopping Cart</a> -";
         echo "  <a href=myaccount.php>My Account</a> " ;
 	}
+	if(isset($_SESSION['SESS_ADMINLOGGEDIN'])) {
+		echo "<a href=adminhistory.php>Completed Orders</a> ";        
+	}
         ?>
 	<?php
-	if(isset($_SESSION['SESS_LOGGEDIN'])) {
+	if(isset($_SESSION['SESS_LOGGEDIN']) || isset($_SESSION['SESS_ADMINLOGGEDIN'])) {
         echo " - <a href=logout.php>Log Out</a> " ;
         }
 	?>
