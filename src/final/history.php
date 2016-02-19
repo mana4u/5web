@@ -5,7 +5,7 @@ if(isset($_SESSION['SESS_LOGGEDIN']))
 {
 		
 	$total = 0;
-    $custsql = "SELECT * from orders WHERE Paid = 1 AND customer_id = ". $_SESSION['SESS_USERID'];
+    $custsql = "SELECT * from orders WHERE Paid = 1 AND customer_id = ". $_SESSION['SESS_USERID']." order by date";
     $custres = mysqli_query($mysqli,$custsql) or die(mysqli_error($mysqli));
 	$custnumrows = mysqli_num_rows($custres);
 	if($custnumrows != 0)

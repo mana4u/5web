@@ -6,9 +6,9 @@ if(isset($_SESSION['SESS_LOGGEDIN']))
 	if(isset($_POST['paypalsubmit']))
 	{
 		
-		$upsql = "UPDATE orders SET Paid = 1 WHERE id = " . $_SESSION['SESS_ORDERNUM'];
+		$upsql = "UPDATE orders SET date = now(), Paid = 1 WHERE id = " . $_SESSION['SESS_ORDERNUM'];
 		$upres = mysqli_query($mysqli,$upsql) or die(mysqli_error($mysqli));
-		$itemssql = "SELECT total FROM orders WHERE id = " . $_SESSION['SESS_ORDERNUM'];
+		$itemssql = "SELECT * FROM orders WHERE id = " . $_SESSION['SESS_ORDERNUM'];
 		unset($_SESSION['SESS_ORDERNUM']);
 		$itemsres = mysqli_query($mysqli,$itemssql) or die(mysqli_error($mysqli));
 		$row = mysqli_fetch_assoc($itemsres);
@@ -75,7 +75,7 @@ if(isset($_SESSION['SESS_LOGGEDIN']))
         echo "</tr>";
         echo "</table>";
         echo "<p><h2><form action='showcart.php' method='POST'><input type='submit' name='paypalsubmit' value='Pay with PayPal'></form>
-		<a href=>Pay with PayPal</a></h2></p>";
+		</h2></p>";
         require("footer.php");
     }
 }
