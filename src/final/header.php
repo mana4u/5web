@@ -34,7 +34,8 @@ require("config.php");
 	}
 	if(isset($_SESSION['SESS_ADMINLOGGEDIN'])) {
 		echo "<a href=adminhistory.php>Completed Orders</a> -";
-                echo "  <a href=addProduct.php>Add a Product</a>";
+        echo " <a href=addProduct.php>Add a Product</a> -";
+		echo " <a href=sendemail.php>Email</a>";
 	}
         ?>
 	<?php

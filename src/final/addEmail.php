@@ -1,5 +1,6 @@
 <?php
 session_start();
+include ("gmail.php");
 require("config.php");
 if(isset($_POST['submitN'])){
 	 if ((filter_input(INPUT_POST, 'emailN'))){
@@ -12,20 +13,23 @@ if(isset($_POST['submitN'])){
             } else {
                 $addrecsql = "INSERT INTO newsletter VALUES ('".$email."');";
                 $res = mysqli_query($mysqli,$addrecsql) or die(mysqli_error($mysqli));
+				$subject = "Thank you for signing up!";
+                        $message = "<p>Hello. I am Dorothy Biagioni.Thank you for sighing for our Newsletter!</p>";
+                        gmail($email, $subject, $message);
             }
                 if ($res == true){
                     echo("<script>alert('Thank you for signing up for the newsletter $email');</script>");
-                    echo("<script>location.href = 'home.php';</script>");
+                    echo("<script>location.href = 'index.php';</script>");
                 } else {
                     echo ("<script>alert('Something went wrong, please try again later');</script>");
-                    echo("<script>location.href = 'home.php';</script>");
+                    echo("<script>location.href = 'index.php';</script>");
                 }
              } else {
                  echo("<script>alert('please enter your email');</script>");
-                 echo("<script>location.href = 'home.php';</script>");
+                 echo("<script>location.href = 'index.php';</script>");
              }
 } else{
-    echo("<script>location.href = 'home.php';</script>");
+    echo("<script>location.href = 'index.php';</script>");
 }
 ?>
 
