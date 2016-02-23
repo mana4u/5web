@@ -32,6 +32,19 @@ if(isset($_POST['submit'])){
 <html>
 <style type="text/css">
 
+#nav_myaccount{
+font-family: "trebuchet ms", verdana, sans-serif;
+font-size: 12px;
+background-color:#cceeff;
+height:320px;
+width:200px;
+border: 1px solid #66ccff;
+padding-top: 0px;
+padding-right: 0px;
+padding-botton:0px;
+padding-left:0px;
+}
+
 table {
 	border-spacing: 0px;
 }
@@ -42,22 +55,20 @@ table {
 
 <table style = "width:100%" border-collapse: collapse;>
 <tr>
-<td valign=top width="20%" bgcolor="#cceeff" style="padding:0px 30px 0px 30px; border:1px solid #66ccff;">
-<br><br>
-      <div style= "font-size: 20px; font-weight: bold; color: #004466;">
-      <?php echo "Hello, ";?></div>
-      
-      <div style= "font-size: 20px; color: black;">
-      <?php echo $userrow['firstName'];?><?php echo " ";?><?php echo $userrow['lastName'];?>
-      <img src='./images/smile.png', alt="smile" width="30" height="30"></div>
-      <br>
-      <div style= "font-size: 20px; font-weight: bold; color: #004466;">main-user-info</div>
+<td style="width:20%">
 
-      <div style= "font-size: 15px; color: black;">
-      <p><a href="myaccount.php"><u>Change User Information</u></a></p>
-      <p><a href="history.php"><u>Purchase History</u></a></p>
-      <p><a href="myaccount.php"><u>Downloads</u></a></p>
-      </div>
+<div id ="nav_myaccount">
+  <img src='./images/monster.jpg', alt="edit-user" style="width:50px;height:50px; position:absolute; top:45px; left:425px">
+      <div style= "font-size: 12px; font-weight: bold; color: black; position: absolute; top:45px; left:485px;">editing-user</div>
+      <div style= "font-size: 15px; font-weight: bold; color: #004466; position: absolute; top:65px; left:485px;">
+      <?php echo $userrow['firstName'];?><?php echo " ";?><?php echo $userrow['lastName'];?></div>
+      <img src='./images/user-details2.png', alt="user-details" style= "position:absolute; top:105px; left:380px">
+      <div style= "font-size: 15px; font-weight: bold; color: #004466; position: absolute; top:135px; left:435px;">main-user-info</div>
+</div>
+
+      <div style= "color: #004466; position: absolute; top:160px; left:420px;"><a href="myaccount.php"><u>Change User Information</u></a></div>
+      <div style= "color: #004466; position: absolute; top:185px; left:420px;"><a href="history.php"><u>Purchase History</u></a></div>
+      <div style= "color: #004466; position: absolute; top:210px; left:420px;"><a href="myaccount.php"><u>Downloads</u></a></div>
 </td>
 
 <?php if(isset($error)): ?>
