@@ -36,7 +36,7 @@ if(isset($_POST['submit'])){
 		echo "<td><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/dummy.jpg' alt='". $prodrow['name'] . "'></a></td>";
 		}	
 		else {
-		echo "<td><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/" . $prodrow['image']. "' alt='". $prodrow['name'] . "'></a></td>";
+		echo "<td><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/" . $prodrow['image']. "' alt='". $prodrow['name'] . "' height='150px' width='150px'></a></td>";
 		}
     echo "<td>";
     echo "<form action='addtobasket.php?id=". $prodrow['id'] . "' method='POST'>";
@@ -104,7 +104,7 @@ else
 		echo "<td><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/dummy.jpg' alt='". $prodrow['name'] . "'></a></td>";
 		}	
 		else {
-		echo "<td><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/" . $prodrow['image']. "' alt='". $prodrow['name'] . "'></a></td>";
+		echo "<td><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/" . $prodrow['image']. "' alt='". $prodrow['name'] . "' height='150px' width='150px'></a></td>";
 		}
     echo "<td>";
     echo "<form action='addtobasket.php?id=". $prodrow['id'] . "' method='POST'>";

@@ -2,6 +2,9 @@
 session_start();
 require("header.php");
 if(isset($_SESSION['SESS_ADMINLOGGEDIN'])){
+			echo "<a href=adminhistory.php><h3>Completed Orders</a> -";
+        echo " <a href=addProduct.php>Add a Product</a> -";
+		echo " <a href=sendemail.php>Email</a></h3>";
     echo "<h1>Add a Product</h1>";
     echo "<form action='upload.php' method='POST' enctype='multipart/form-data'>";
     echo "<table>";

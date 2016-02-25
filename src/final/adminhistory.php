@@ -1,9 +1,12 @@
 <?php
 session_start();
 require("header.php");
+
 if(isset($_SESSION['SESS_ADMINLOGGEDIN']))
 {
-		
+		echo "<h3><a href=adminhistory.php>Completed Orders</a> -";
+        echo " <a href=addProduct.php>Add a Product</a> -";
+		echo " <a href=sendemail.php>Email</a></h3>";	
 	$total = 0;
     $custsql = "SELECT * from orders WHERE Paid = 1";
     $custres = mysqli_query($mysqli,$custsql) or die(mysqli_error($mysqli));

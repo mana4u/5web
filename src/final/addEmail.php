@@ -14,8 +14,8 @@ if(isset($_POST['submitN'])){
                 $addrecsql = "INSERT INTO newsletter VALUES ('".$email."');";
                 $res = mysqli_query($mysqli,$addrecsql) or die(mysqli_error($mysqli));
 				$subject = "Thank you for signing up!";
-                        $message = "<p>Hello. I am Dorothy Biagioni.Thank you for sighing for our Newsletter!</p>";
-                        gmail($email, $subject, $message);
+                $message = "<p>Hello. I am Dorothy Biagioni.Thank you for sighing for our Newsletter!</p>";
+                gmail($email, $subject, $message);
             }
                 if ($res == true){
                     echo("<script>alert('Thank you for signing up for the newsletter $email');</script>");

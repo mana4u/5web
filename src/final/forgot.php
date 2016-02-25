@@ -1,6 +1,11 @@
 <?php
+function random_password( $length = 8 ) {
+    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?";
+    $password = substr( str_shuffle( $chars ), 0, $length );
+    return $password;
+}
+include ("gmail.php");
 require("header.php");
-
 if(isset($_SESSION['SESS_LOGGEDIN'])){
 header("Location: index.php");
 }
@@ -11,7 +16,13 @@ if(isset($_POST['submit'])){
         $recoveryres = mysqli_query($mysqli,$recoverysql) or die(mysqli_error($mysqli));
 	$numrows = mysqli_num_rows($recoveryres);
         if($numrows > 0){
-            //insert email stuff here
+			$password = random_password(8);
+			$updatepw = "UPDATE customers SET password = PASSWORD('$password') WHERE email = '$email_rec';";
+			$updateres = mysqli_query($mysqli,$updatepw) or die(mysqli_error($mysqli));
+			$subject = "This is your temporary password!";
+            $message = "<p>This is your temporary password. please go to my account page to change your password after first login</p><p>'$password'</p>";
+			gmail($email_rec, $subject, $message);
+
             echo("<h3>Thank you, a message has been sent to $email_rec</h3>");
         } else {
             echo("<h3>Email not found, please try again</h3>");
@@ -40,10 +51,4 @@ if(isset($_POST['submit'])){
 <?php
 require("footer.php");
 ?>
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
