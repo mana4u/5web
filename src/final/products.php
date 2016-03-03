@@ -33,10 +33,10 @@ if(isset($_POST['submit'])){
     {
 		echo "<tr align='left' ><td width='20%'>";
         if(empty($prodrow['image'])) {
-		echo "<td><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/dummy.jpg' alt='". $prodrow['name'] . "'></a></td>";
+		echo "<td width='150px' height='150px'><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/dummy.jpg' alt='". $prodrow['name'] . "'></a></td>";
 		}	
 		else {
-		echo "<td><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/" . $prodrow['image']. "' alt='". $prodrow['name'] . "' height='150px' width='150px'></a></td>";
+		echo "<td width='150px' height='150px'><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/" . $prodrow['image']. "' alt='". $prodrow['name'] . "' height='150px' width='150px'></a></td>";
 		}
     echo "<td>";
     echo "<form action='addtobasket.php?id=". $prodrow['id'] . "' method='POST'>";
@@ -44,12 +44,6 @@ if(isset($_POST['submit'])){
     echo "<p>" . $prodrow['description'];
     echo "<table cellpadding='10'>";
     echo "<tr>";
-    echo "<td>Select Quantity <select name='amountBox'>";
-    for($i=1;$i<=50;$i++)
-    {
-        echo "<option>" . $i . "</option>";
-    }
-    echo "</select></td>";
     echo "<td><strong>$". sprintf('%.2f', $prodrow['price']) . "</strong></td>";
     echo "<td><input type='submit' name='submit' value='Add to basket'></td>";
     echo "</tr>";
@@ -101,7 +95,7 @@ else
     {
         echo "<tr align='left' ><td width='20%'>";
         if(empty($prodrow['image'])) {
-		echo "<td><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/dummy.jpg' alt='". $prodrow['name'] . "'></a></td>";
+		echo "<td width='150px' height='150px'><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/dummy.jpg' alt='". $prodrow['name'] . "'></a></td>";
 		}	
 		else {
 		echo "<td><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/" . $prodrow['image']. "' alt='". $prodrow['name'] . "' height='150px' width='150px'></a></td>";
@@ -112,12 +106,6 @@ else
     echo "<p>" . $prodrow['description'];
     echo "<table cellpadding='10'>";
     echo "<tr>";
-    echo "<td>Select Quantity <select name='amountBox'>";
-    for($i=1;$i<=50;$i++)
-    {
-        echo "<option>" . $i . "</option>";
-    }
-    echo "</select></td>";
     echo "<td><strong>$". sprintf('%.2f', $prodrow['price']) . "</strong></td>";
     echo "<td><input type='submit' name='submit' value='Add to basket'></td>";
     echo "</tr>";

@@ -20,7 +20,7 @@ if(isset($_POST['submit'])){
 			$updatepw = "UPDATE customers SET password = PASSWORD('$password') WHERE email = '$email_rec';";
 			$updateres = mysqli_query($mysqli,$updatepw) or die(mysqli_error($mysqli));
 			$subject = "This is your temporary password!";
-            $message = "<p>This is your temporary password. please go to my account page to change your password after first login</p><p>'$password'</p>";
+            $message = "<p>This is your temporary password. please go to my account page to change your password after first login</p><p>$password</p>";
 			gmail($email_rec, $subject, $message);
 
             echo("<h3>Thank you, a message has been sent to $email_rec</h3>");

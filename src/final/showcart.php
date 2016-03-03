@@ -42,24 +42,20 @@ if(isset($_SESSION['SESS_LOGGEDIN']))
         echo "<tr>";
         echo "<td></td>";
         echo "<td><strong>Item</strong></td>";
-        echo "<td><strong>Quantity</strong></td>";
-        echo "<td><strong>Unit Price</strong></td>";
-        echo "<td><strong>Total Price</strong></td>";
+        echo "<td><strong>Price</strong></td>";
         echo "<td></td>";
         echo "</tr>";
         while($itemsrow = mysqli_fetch_assoc($itemsres))
         {
-            $quantitytotal = $itemsrow['price'] * $itemsrow['quantity'];
+            $quantitytotal = $itemsrow['price'];
             echo "<tr>";
             if(!empty($itemsrow['image'])) 
             {
                 echo "<td><img src='images/" .$itemsrow['image'] . "' width='50' alt='". $itemsrow['name'] . "'></td>";
             }
         echo "<td>" . $itemsrow['name'] . "</td>";
-        echo "<td>" . $itemsrow['quantity'] . "</td>";
-        echo "<td><strong>$" . sprintf('%.2f', $itemsrow['price']) . "</strong></td>";
         echo "<td><strong>$". sprintf('%.2f', $quantitytotal) . "</strong></td>";
-        echo "<td>[<a href='delete.php?id=". $itemsrow['itemid'] . "'>X</a>]</td>";
+        echo "<td>[<a href='delete.php?id=". $itemsrow['itemid'] . "'>DELETE</a>]</td>";
         echo "</tr>";
         $total = $total + $quantitytotal;
         $totalsql = "UPDATE orders SET total = ". $total . " WHERE id = ". $_SESSION['SESS_ORDERNUM'];

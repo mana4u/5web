@@ -24,12 +24,10 @@ echo "<h1>Products Purchased</h1>";
 echo "<table cellpadding=10>";
 echo "<th></th>";
 echo "<th>Product</th>";
-echo "<th>Quantity</th>";
 echo "<th>Price</th>";
-echo "<th>Total</th>";
 while($itemsrow = mysqli_fetch_assoc($itemsres))
 {
-$quantitytotal = $itemsrow['price']* $itemsrow['quantity'];
+$quantitytotal = $itemsrow['price'];
 echo "<tr>";
 if(empty($itemsrow['image'])) {
 echo "<td><img src='./images/dummy.jpg' width='50' alt='". $itemsrow['name'] . "'></td>";
@@ -38,9 +36,7 @@ else {
 echo "<td><img src='./images/". $itemsrow['image'] . "' width='50' alt='". $itemsrow['name'] . "'></td>";
 }
 echo "<td>" . $itemsrow['name'] . "</td>";
-echo "<td>" . $itemsrow['quantity'] . "</td>";
 echo "<td><strong>$" . sprintf('%.2f',$itemsrow['price']) . "</strong></td>";
-echo "<td><strong>$" . sprintf('%.2f',$quantitytotal) . "</strong></td>";
 echo "</tr>";
 @$total = $total + $quantitytotal;
 

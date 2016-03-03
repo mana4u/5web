@@ -26,7 +26,7 @@ if(isset($_POST['submit'])){
 		}
     // Checkbox is selected
 	
-        $sql = "INSERT INTO customers VALUES ('','".$fname."','".$lname."','".$phone."','".$email."',PASSWORD('".$password."'), '".$subscription."')";
+        $sql = "INSERT INTO customers VALUES ('','".$fname."','".$lname."','".$phone."','".$email."',PASSWORD('".$password."'),'','".$subscription."')";
 		$res = mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
 
 	if ($res === TRUE) {

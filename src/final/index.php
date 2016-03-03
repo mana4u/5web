@@ -33,20 +33,22 @@ if(isset($_POST['buynowsubmit']))
         
         <h1>Home</h1>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/dEOSwrxwpcU" frameborder="0" allowfullscreen></iframe>
-	<h2>Current Freebie:</h2>
+	<h2>Current Special</h2>
     </body>
 </html>
 
 <?php
-$prodcatsql = "SELECT * FROM products WHERE freebie = 1";
+$prodcatsql = "SELECT * FROM products WHERE promotion = 1";
 $prodcatres = mysqli_query($mysqli,$prodcatsql) or die(mysqli_error($mysqli));
 $numrows = mysqli_num_rows($prodcatres);
+$fprodcatsql = "SELECT * FROM products WHERE freebie = 1";
+$fprodcatres = mysqli_query($mysqli,$fprodcatsql) or die(mysqli_error($mysqli));
+$fnumrows = mysqli_num_rows($fprodcatres);
 
 
 if($numrows == 0)
 {
-    echo "<h1>No products</h1>";
-    echo "There are no products in this category.";
+    echo "<h1>No Current Special</h1>";
 }
 
 else
@@ -76,8 +78,46 @@ else
 	echo "</table>";
 }
 
-if(!isset($_SESSION['SESS_LOGGEDIN'])){
-echo "<html>";
+	echo "<h2>Current FreeBie</h2>";
+
+if($fnumrows == 0)
+{
+    echo "<h1>No Current Special</h1>";
+}
+
+else
+	
+{
+    echo "<table cellpadding='10'>";
+    while($fprodrow = mysqli_fetch_assoc($fprodcatres))
+    {
+        echo "<tr>";
+        if(!empty($fprodrow['image'])) 
+        {
+            echo "<td><img src='./images/" . $fprodrow['image']. "' alt='". $fprodrow['name'] . "'></td>";
+		}
+		echo "<td>";
+	$_SESSION['buynow_id'] = $fprodrow['id'];
+    echo "<form action='addtobasket.php?id=". $fprodrow['id'] . "' method='POST'>";
+    echo "</form>";
+    echo "<h2>" . $fprodrow['name'] . "</h2>";
+    echo "<p>" . $fprodrow['description']. "</p>";
+	$_SESSION['buynow_price'] = 0;
+	echo "<strong>$" . sprintf('%.2f', $_SESSION['buynow_price']) . "</strong></P>";
+	echo "<p><h2><form action='index.php' method='POST'><input type='submit' name='buynowsubmit' value='Buy Now'></form>
+		  </h2></p>";
+	echo "</td>";
+	echo "</tr>";
+	}
+	echo "</table>";
+}
+
+
+if(isset($_SESSION['SESS_LOGGEDIN']) || isset($_SESSION['SESS_ADMINLOGGEDIN'])){
+
+}
+else{
+	echo "<html>";
 echo "<body>";
 echo "<br/>";
 echo "<h2>Sign up for our newsletter</h2>";
@@ -95,8 +135,6 @@ echo "</table>";
 echo "</form>";
 echo "</body>";
 echo "</html>";
-}
-else{
 }
 require("footer.php");
 ?>

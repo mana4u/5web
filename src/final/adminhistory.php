@@ -6,6 +6,7 @@ if(isset($_SESSION['SESS_ADMINLOGGEDIN']))
 {
 		echo "<h3><a href=adminhistory.php>Completed Orders</a> -";
         echo " <a href=addProduct.php>Add a Product</a> -";
+		echo " <a href=editProduct.php>Edit/Delete a Product</a> -";
 		echo " <a href=sendemail.php>Email</a></h3>";	
 	$total = 0;
     $custsql = "SELECT orders.id, orders.date, orders.total, customers.email from orders,customers WHERE Paid = 1 and orders.customer_id=customers.id";
