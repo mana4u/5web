@@ -7,7 +7,8 @@ $usersql = "SELECT * From customers WHERE id = ". $_SESSION['SESS_USERID'];
 $userres = mysqli_query($mysqli,$usersql) or die(mysqli_error($mysqli));
 $userrow = mysqli_fetch_assoc($userres);
 
-if(isset($_POST['submit'])){
+
+if(isset($_POST['submit_iden'])){
 
     if ((filter_input(INPUT_POST, 'field_username1'))
 	&& (filter_input(INPUT_POST, 'field_username2')))
@@ -16,36 +17,58 @@ if(isset($_POST['submit'])){
 	$fname = filter_input(INPUT_POST, 'field_username1');
         $lname = filter_input(INPUT_POST, 'field_username2');
 
+ 	if ((!preg_match("/\w+/",$fname))&&(preg_match("/\w+/",$lname))){
+	echo("<script>alert('Firstname must not be blank and contain only letters, numbers and underscores.');</script>");
+	echo("<script>location.href = 'myaccount.php';</script>");
+	}
+	else if ((preg_match("/\w+/",$fname))&&(!preg_match("/\w+/",$lname))){
+	echo("<script>alert('Lastname must not be blank and contain only letters, numbers and underscores.');</script>");
+	echo("<script>location.href = 'myaccount.php';</script>");
+	}
+	else if ((!preg_match("/\w+/",$fname))&&(!preg_match("/\w+/",$lname))){
+	echo("<script>alert('Lastname and firstname must not be blank and contain only letters, numbers and underscores.');</script>");
+	echo("<script>location.href = 'myaccount.php';</script>");
+	}
+	else{
+
 	$sql = "UPDATE customers SET firstName= '".$fname."', lastName= '".$lname."' WHERE id = ". $_SESSION['SESS_USERID'];
         $query = $mysqli->query($sql);
 	
 	echo("<script>alert('Thank you, your information has been changed!');</script>");
 	echo("<script>location.href = 'myaccount.php';</script>");
 	mysqli_close($mysqli);
-	}
+	}}
     else{
 	echo("<script>alert('Please fill all information');</script>");
         echo("<script>location.href = 'myaccount.php';</script>");
 	}
+
 }
+
+
+if(isset($_POST['submit_news'])){
+    if ($userrow['newsletter']==0) 
+	{
+	$sql = "UPDATE customers SET newsletter= '1' WHERE id = ". $_SESSION['SESS_USERID'];
+	$query = $mysqli->query($sql);
+	echo("<script>alert('Thank you for subscription');</script>");
+        echo("<script>location.href = 'myaccount.php';</script>");
+	mysqli_close($mysqli);
+	}
+    else{
+	$sql = "UPDATE customers SET newsletter= '0' WHERE id = ". $_SESSION['SESS_USERID'];
+	$query = $mysqli->query($sql);
+	echo("<script>alert('You have successfully unsubscribed from our newsletter');</script>");
+        echo("<script>location.href = 'myaccount.php';</script>");
+	mysqli_close($mysqli);
+	}
+}
+
 ?>
 
 <!DOCTYPE html>
 <html>
 <style type="text/css">
-
-#nav_myaccount{
-font-family: "trebuchet ms", verdana, sans-serif;
-font-size: 12px;
-background-color:#cceeff;
-height:320px;
-width:200px;
-border: 1px solid #66ccff;
-padding-top: 0px;
-padding-right: 0px;
-padding-botton:0px;
-padding-left:0px;
-}
 
 table {
 	border-spacing: 0px;
@@ -57,20 +80,22 @@ table {
 
 <table style = "width:100%" border-collapse: collapse;>
 <tr>
-<td style="width:20%">
+<td valign=top width="20%" bgcolor="#cceeff" style="padding:0px 30px 0px 30px; border:1px solid #66ccff;">
+<br><br>
+      <div style= "font-size: 20px; font-weight: bold; color: #004466;">
+      <?php echo "Hello, ";?></div>
+      
+      <div style= "font-size: 20px; color: black;">
+      <?php echo $userrow['firstName'];?><?php echo " ";?><?php echo $userrow['lastName'];?>
+      <img src='./images/smile.png', alt="smile" width="30" height="30"></div>
+      <br>
+      <div style= "font-size: 20px; font-weight: bold; color: #004466;">main-user-info</div>
 
-<div id ="nav_myaccount">
-  <img src='./images/monster.jpg', alt="edit-user" style="width:50px;height:50px; position:absolute; top:45px; left:425px">
-      <div style= "font-size: 12px; font-weight: bold; color: black; position: absolute; top:45px; left:485px;">editing-user</div>
-      <div style= "font-size: 15px; font-weight: bold; color: #004466; position: absolute; top:65px; left:485px;">
-      <?php echo $userrow['firstName'];?><?php echo " ";?><?php echo $userrow['lastName'];?></div>
-      <img src='./images/user-details2.png', alt="user-details" style= "position:absolute; top:105px; left:380px">
-      <div style= "font-size: 15px; font-weight: bold; color: #004466; position: absolute; top:135px; left:435px;">main-user-info</div>
-</div>
-
-      <div style= "color: #004466; position: absolute; top:160px; left:420px;"><a href="myaccount.php"><u>Change User Information</u></a></div>
-      <div style= "color: #004466; position: absolute; top:185px; left:420px;"><a href="history.php"><u>Purchase History</u></a></div>
-      <div style= "color: #004466; position: absolute; top:210px; left:420px;"><a href="myaccount.php"><u>Downloads</u></a></div>
+      <div style= "font-size: 15px; color: black;">
+      <p><a href="myaccount.php"><u>Change User Information</u></a></p>
+      <p><a href="history.php"><u>Purchase History</u></a></p>
+      <p><a href="myaccount.php"><u>Downloads</u></a></p>
+      </div>
 </td>
 
 <?php if(isset($error)): ?>
@@ -83,35 +108,39 @@ table {
 <form name="myForm" action="" method="post">
 <h3>Identification</h3>
 <p>Email Address: <?php echo $userrow['email'];?> </p>
-<p>First name: <input type="text" name="field_username1" id="field_username1" title="Firstname must not be blank and contain only letters, numbers and underscores." required pattern="\w+"
-value= "<?php echo $userrow['firstName'];?>"/></p>
+<p>First name: <input type="text" name="field_username1" id="field_username1" value= "<?php echo $userrow['firstName'];?>"/></p>
 
-<P>Last name: <input type="text" name="field_username2" id="field_username2" title="Lastname must not be blank and contain only letters, numbers and underscores." required pattern="\w+"
-value= "<?php echo $userrow['lastName'];?>"/></p>
+<P>Last name: <input type="text" name="field_username2" id="field_username2" value= "<?php echo $userrow['lastName'];?>"/></p>
 
-<h3>Subscription</h3>
-
-<p>Membership:
-<select>
-   <option value="active">Active</option>
-   <option value="Inactive">Inactive</option>
-</select>
-</p>
-
-<p>Newsletter:
-<select>
-   <option value="active">Active</option>
-   <option value="Inactive">Inactive</option>
-</select>
-</p>
-
-<input type="submit" name="submit" value="Change my info" />
-<button type="cancel">Cancel</button>
+<input type="submit" name="submit_iden" value="Change Username"/>
+<form action="myaccount.php">
+	<input type="submit" value="Cancel">
+</form>
 
 <br>-----------------------------------------------------------<br />
-<h3>Change Password</h3>
-<p>Click to change your password <button type="button" onclick="location.href='change_password.php'">Change Password</button></p>
 
+<h3>Change Password</h3>
+<p>To change your password please <text><a href="change_password.php"><u><b>Click here</b></u></a></text>
+
+<br>-----------------------------------------------------------<br />
+
+<form name="myForm2" action="" method="post">
+<h3>Subscription</h3>
+<p>Newsletter: <input type="text" name="newsletter" id="newsletter" 
+value= "<?php 
+if ($userrow['newsletter']==0)
+	echo "Inactive"; 
+else
+	echo "Active"; 
+?>"/>
+<input type="submit" name="submit_news" value="
+<?php 
+if ($userrow['newsletter']==0)
+	echo "Subscribe!"; 
+else
+	echo "Cancel Subscription"; 
+?>"/></p>
+</form>
 
 </form>
 

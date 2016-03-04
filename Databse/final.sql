@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2016 at 09:47 AM
--- Server version: 5.6.17
+-- Generation Time: 16-03-04 07:19
+-- 서버 버전: 5.6.17
 -- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- 테이블 구조 `admin`
 --
 
 CREATE TABLE IF NOT EXISTS `admin` (
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `admin`
+-- 테이블의 덤프 데이터 `admin`
 --
 
 INSERT INTO `admin` (`email`, `password`) VALUES
@@ -42,7 +42,7 @@ INSERT INTO `admin` (`email`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customers`
+-- 테이블 구조 `customers`
 --
 
 CREATE TABLE IF NOT EXISTS `customers` (
@@ -52,30 +52,30 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `phone` varchar(20) NOT NULL,
   `email` varchar(150) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `membership` tinyint(4) NOT NULL,
   `newsletter` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
--- Dumping data for table `customers`
+-- 테이블의 덤프 데이터 `customers`
 --
 
-INSERT INTO `customers` (`id`, `firstName`, `lastName`, `phone`, `email`, `password`, `membership`, `newsletter`) VALUES
-(4, '1', '1', '1', '1@gmail.com', '*E6CC90B878B948C35E92B003C792C46C58C4AF40', 0, 0),
-(5, '3', '3', '3', '3@gmail.com', '*C4E74DDDC9CC9E2FDCDB7F63B127FB638831262E', 0, 0),
-(6, '4', '4', '4', '4@gmail.com', '*908BE2B7EB7D7567F7FF98716850F59BA69AA9DB', 0, 0),
-(7, '2', '2', '2503006248', '2@gmail.com', '*12033B78389744F3F39AC4CE4CCFCAD6960D8EA0', 0, 0),
-(8, '6', '6', '6', '6@gmail.com', '*C3AB9ECDF746570BBF9DCAA9DB3586D25956DC93', 0, 0),
-(9, 'Junghan', 'Kim', '2503006248', 'kmana4u@gmail.com', '*3012C423C09F943B5387A4E2E41F846F00D67B61', 0, 0),
-(10, 'dasd', 'kim', '2332323', '1mana4u@naver.com', '*A4B6157319038724E3560894F7F932C8886EBFCF', 0, 0),
-(12, '123', '123', '123', '123@gmail.com', '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257', 1, 0);
+INSERT INTO `customers` (`id`, `firstName`, `lastName`, `phone`, `email`, `password`, `newsletter`) VALUES
+(4, '1', '1', '1', '1@gmail.com', '*E6CC90B878B948C35E92B003C792C46C58C4AF40', 0),
+(5, '3', '3', '3', '3@gmail.com', '*C4E74DDDC9CC9E2FDCDB7F63B127FB638831262E', 0),
+(6, '4', '4', '4', '4@gmail.com', '*908BE2B7EB7D7567F7FF98716850F59BA69AA9DB', 0),
+(7, '2', '2', '2503006248', '2@gmail.com', '*12033B78389744F3F39AC4CE4CCFCAD6960D8EA0', 0),
+(8, '6', '6', '6', '6@gmail.com', '*C3AB9ECDF746570BBF9DCAA9DB3586D25956DC93', 0),
+(9, 'Junghan', 'Kim', '2503006248', 'kmana4u@gmail.com', '*3012C423C09F943B5387A4E2E41F846F00D67B61', 0),
+(10, 'dasd', 'kim', '2332323', '1mana4u@naver.com', '*A4B6157319038724E3560894F7F932C8886EBFCF', 0),
+(12, '123', '123', '123', '123@gmail.com', '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257', 0),
+(13, 'ahyoung', 'in', '250', 'ahyungss@hotmail.com', '*776141857D7F3C23D905BFC4C7CF4CE64D19CE2E', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `newsletter`
+-- 테이블 구조 `newsletter`
 --
 
 CREATE TABLE IF NOT EXISTS `newsletter` (
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `newsletter` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `newsletter`
+-- 테이블의 덤프 데이터 `newsletter`
 --
 
 INSERT INTO `newsletter` (`email`) VALUES
@@ -93,7 +93,7 @@ INSERT INTO `newsletter` (`email`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orderitems`
+-- 테이블 구조 `orderitems`
 --
 
 CREATE TABLE IF NOT EXISTS `orderitems` (
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `orderitems` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
 
 --
--- Dumping data for table `orderitems`
+-- 테이블의 덤프 데이터 `orderitems`
 --
 
 INSERT INTO `orderitems` (`id`, `order_id`, `product_id`) VALUES
@@ -145,7 +145,7 @@ INSERT INTO `orderitems` (`id`, `order_id`, `product_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- 테이블 구조 `orders`
 --
 
 CREATE TABLE IF NOT EXISTS `orders` (
@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=64 ;
 
 --
--- Dumping data for table `orders`
+-- 테이블의 덤프 데이터 `orders`
 --
 
 INSERT INTO `orders` (`id`, `customer_id`, `date`, `total`, `Paid`) VALUES
@@ -188,7 +188,7 @@ INSERT INTO `orders` (`id`, `customer_id`, `date`, `total`, `Paid`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- 테이블 구조 `products`
 --
 
 CREATE TABLE IF NOT EXISTS `products` (
@@ -204,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
--- Dumping data for table `products`
+-- 테이블의 덤프 데이터 `products`
 --
 
 INSERT INTO `products` (`id`, `name`, `cata`, `description`, `image`, `price`, `promotion`, `freebie`) VALUES
