@@ -115,7 +115,7 @@ td.one {
 }
 div.move {
     position: relative;
-    top:80px;
+    top:50px;
 }
 </style>
 </head>

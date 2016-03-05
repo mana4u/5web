@@ -46,6 +46,43 @@ if(isset($_POST['submit_iden'])){
 }
 
 
+if(isset($_POST['submit_pw'])){
+
+    if ((filter_input(INPUT_POST, 'field_pwd1'))
+	&& (filter_input(INPUT_POST, 'field_pwd2')))
+	{
+	$password_old = filter_input(INPUT_POST, 'field_pwd1');
+        $password_new = filter_input(INPUT_POST, 'field_pwd2');
+
+	if ((!preg_match("/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/",$password_old))&&(($password_old!=$password_new))){
+	echo("<script>alert('password validation fail and does not match.');</script>");
+	echo("<script>location.href = 'myaccount.php';</script>");
+	}
+	elseif ((preg_match("/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/",$password_old))&&(($password_old!=$password_new))){
+	echo("<script>alert('password does not match.');</script>");
+	echo("<script>location.href = 'myaccount.php';</script>");
+	}
+	elseif ((!preg_match("/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/",$password_old))&&(($password_old==$password_new))){
+	echo("<script>alert('password validation fail.');</script>");
+	echo("<script>location.href = 'myaccount.php';</script>");
+	}
+	
+	else {
+
+	$sql = "UPDATE customers SET password= PASSWORD('" .$password_new. "') WHERE id = ". $_SESSION['SESS_USERID'];
+        $query = $mysqli->query($sql);
+	
+	echo("<script>alert('Thank you, your password has been changed!');</script>");
+	echo("<script>location.href = 'myaccount.php';</script>");
+	mysqli_close($mysqli);
+	}}
+    else{
+	echo("<script>alert('Please fill all information');</script>");
+        echo("<script>location.href = 'myaccount.php';</script>");
+	}
+}
+
+
 if(isset($_POST['submit_news'])){
     if ($userrow['newsletter']==0) 
 	{
@@ -68,65 +105,83 @@ if(isset($_POST['submit_news'])){
 
 <!DOCTYPE html>
 <html>
-<style type="text/css">
-
-table {
-	border-spacing: 0px;
+<style>
+table.one {
+    border: 1px solid grey;
+    border-collapse: collapse;
+}
+td.one {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 30px;
+}
+div.move {
+    position: relative;
+    top:50px;
+}
+div.min {
+    height: 360px;
 }
 
 </style>
-
 <body>
 
-<table style = "width:100%" border-collapse: collapse;>
+<div class="move">
+
+<table class="one" align=center style = "width:60%">
 <tr>
-<td valign=top width="20%" bgcolor="#cceeff" style="padding:0px 30px 0px 30px; border:1px solid #66ccff;">
-<br><br>
-      <div style= "font-size: 20px; font-weight: bold; color: #004466;">
-      <?php echo "Hello, ";?></div>
-      
-      <div style= "font-size: 20px; color: black;">
-      <?php echo $userrow['firstName'];?><?php echo " ";?><?php echo $userrow['lastName'];?>
-      <img src='./images/smile.png', alt="smile" width="30" height="30"></div>
-      <br>
-      <div style= "font-size: 20px; font-weight: bold; color: #004466;">main-user-info</div>
+<td class="one" bgcolor="#fff4b3" valign=top width="20%">
 
-      <div style= "font-size: 15px; color: black;">
-      <p><a href="myaccount.php"><u>Change User Information</u></a></p>
-      <p><a href="history.php"><u>Purchase History</u></a></p>
-      <p><a href="myaccount.php"><u>Downloads</u></a></p>
-      </div>
-</td>
+<div class="min">
 
-<?php if(isset($error)): ?>
-            <h2><?php echo $error; ?></h2>
-        <?php endif; ?>
- 
-<td style="width:80%">
-<div style= "position: relative; top:10px; left:30px;">
+<table>
+<h2>Hello, <br>
+<?php echo $userrow['firstName'];?><?php echo " ";?><?php echo $userrow['lastName'];?>&nbsp;
+</h2>
+</tr>
+<hr>
 
+<h2>User Menu ¡å</h2>
+<tr><td><a href="myaccount.php"><u>Change User Information</u></a></td></tr>
+<tr><td><a href="history_mo.php"><u>Purchase History</u></a></td></tr>
+<tr><td><a href="downloads_mo.php"><u>Downloads</u></a></td></tr>
+
+</table>
+</div>
+
+<td class="one" valign=center width="40%">
+
+<table>
 <form name="myForm" action="" method="post">
 <h3>Identification</h3>
-<p>Email Address: <?php echo $userrow['email'];?> </p>
-<p>First name: <input type="text" name="field_username1" id="field_username1" value= "<?php echo $userrow['firstName'];?>"/></p>
+<tr><td>Email Address: <?php echo $userrow['email'];?> </td></tr>
+<tr><td>First name: <input type="text" name="field_username1" id="field_username1" value= "<?php echo $userrow['firstName'];?>"/></td></tr>
+<tr><td>Last name: <input type="text" name="field_username2" id="field_username2" value= "<?php echo $userrow['lastName'];?>"/></td></tr>
 
-<P>Last name: <input type="text" name="field_username2" id="field_username2" value= "<?php echo $userrow['lastName'];?>"/></p>
-
-<input type="submit" name="submit_iden" value="Change Username"/>
+<tr><td><input type="submit" name="submit_iden" value="Change Username"/>
 <form action="myaccount.php">
-	<input type="submit" value="Cancel">
+	<input type="submit" value="Cancel"></td></tr>
 </form>
+</table>
 
-<br>-----------------------------------------------------------<br />
+<hr>
 
+<table>
+<form id="myForm3" action="" method="post">
 <h3>Change Password</h3>
-<p>To change your password please <text><a href="change_password.php"><u><b>Click here</b></u></a></text>
+<tr><td>Please enter new password: <input type="password" id="field_pwd1" name="field_pwd1" style="width:150px"></td></tr>
+<tr><td>Please re-enter new password: <input type="password" id="field_pwd2" name="field_pwd2" style="width:150px"></td></tr>
+<tr><td><input type="submit" name="submit_pw" value="Change my password" />
+<button type="cancel">Cancel</button></td></tr>
+</form>
+</table>
 
-<br>-----------------------------------------------------------<br />
+<hr>
 
+<table>
 <form name="myForm2" action="" method="post">
-<h3>Subscription</h3>
-<p>Newsletter: <input type="text" name="newsletter" id="newsletter" 
+<h3>Newsletter Subscription(it's free!)</h3>
+<tr><td>Status: <input type="text" name="newsletter" style="width:100px" id="newsletter" 
 value= "<?php 
 if ($userrow['newsletter']==0)
 	echo "Inactive"; 
@@ -139,17 +194,13 @@ if ($userrow['newsletter']==0)
 	echo "Subscribe!"; 
 else
 	echo "Cancel Subscription"; 
-?>"/></p>
+?>"/></td></tr>
 </form>
-
-</form>
-
-</div>
-</div>
-
-</td>
-</tr>
 </table>
+
+
+</table>
+</div>
 
 </body>
 
