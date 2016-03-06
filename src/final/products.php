@@ -1,4 +1,39 @@
 <?php
+
+if(isset($_POST['submit_gift']))
+{
+session_start();
+require("config.php");
+$prodsql = "SELECT * FROM products WHERE id = " . $_GET['id'] . ";";
+$prodres = mysqli_query($mysqli,$prodsql) or die(mysqli_error($mysqli));
+$numrows = mysqli_num_rows($prodres);
+$prodrow = mysqli_fetch_assoc($prodres);
+
+	if(isset($_SESSION['SESS_ORDERNUM']))
+	{
+	$itemsql = "INSERT INTO orderitems(order_id,product_id) VALUES(". $_SESSION['SESS_ORDERNUM'] . ", ". $_GET['id'] . ")";
+	mysqli_query($mysqli,$itemsql) or die(mysqli_error($mysqli));
+	}
+	elseif(isset($_SESSION['SESS_USERID']))
+	{	
+	$sql = "INSERT INTO orders(customer_id, date) VALUES(". $_SESSION['SESS_USERID'] . ", NOW())";
+	mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
+	$_SESSION['SESS_ORDERNUM'] = mysqli_insert_id($mysqli);
+	$itemsql = "INSERT INTO orderitems(order_id, product_id) VALUES(". $_SESSION['SESS_ORDERNUM']. ", " . $_GET['id'] . ")";
+	mysqli_query($mysqli,$itemsql) or die(mysqli_error($mysqli));	
+	}
+	else
+	{
+		echo("<script>alert('Please Login first')</script>");
+		echo("<script>window.location = 'login.php';</script>");
+	}
+$totalprice = $prodrow['price'] * $_POST['amountBox'] ;
+$updsql = "UPDATE orders SET total = total + ". $totalprice . " WHERE id = ". $_SESSION['SESS_ORDERNUM'] . ";";
+mysqli_query($mysqli,$updsql) or die(mysqli_error($mysqli));
+header("Location: " . $config_basedir . "showcart_gift.php");
+}
+
+
 if(isset($_POST['submit'])){
 	require("header.php");
 	$name=$_POST['name']; 
@@ -46,7 +81,12 @@ if(isset($_POST['submit'])){
     echo "<tr>";
     echo "<td><strong>$". sprintf('%.2f', $prodrow['price']) . "</strong></td>";
     echo "<td><input type='submit' name='submit' value='Add to basket'></td>";
-    echo "</tr>";
+    echo "</tr>"; 
+    echo "</form>";
+    echo "<form action='products.php?id=". $prodrow['id'] . "' method='POST'>";
+    echo "<tr>";
+    echo "<td><input type='submit' name='submit_gift' value='Buy as Gift'></td>";
+    echo "</tr>"; 
     echo "</table>";
     echo "</form>";
     echo "</td>";
@@ -109,6 +149,12 @@ else
     echo "<td><strong>$". sprintf('%.2f', $prodrow['price']) . "</strong></td>";
     echo "<td><input type='submit' name='submit' value='Add to basket'></td>";
     echo "</tr>";
+    echo "</form>";
+    echo "<form action='products.php?id=". $prodrow['id'] . "' method='POST'>";
+    echo "<tr>";
+    echo "<td></td>";
+    echo "<td><input type='submit' name='submit_gift' value='Buy as Gift'></td>";
+    echo "</tr>"; 
     echo "</table>";
     echo "</form>";
     echo "</td>";

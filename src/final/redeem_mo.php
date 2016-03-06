@@ -1,5 +1,5 @@
-
 <?php
+
 require("header.php");
 require("config.php");
 
@@ -8,6 +8,7 @@ $userres = mysqli_query($mysqli,$usersql) or die(mysqli_error($mysqli));
 $userrow = mysqli_fetch_assoc($userres);
 
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -61,15 +62,32 @@ div.min {
 
 <td class="one" valign=top width="40%">
 
+<table>
+<form id="redeem" action="" method="post">
+<h3>Please write your code to redeem gift card</h3>
+<tr><td>Code: <input type="text" name="redeemcode" id="redeemcode";/></td></tr>
+<tr><td><input type="submit" name="submit_redeem" value="Submit"/>
+	<input type="submit" value="Cancel"></td></tr>
+</form>
+</table>
+
+
+
+
+
 <?php
-if(isset($_SESSION['SESS_LOGGEDIN']))
-{
-		
-	$total = 0;
-    $custsql = "SELECT * from orders WHERE Paid = 1 AND customer_id = ". $_SESSION['SESS_USERID']." order by date";
+
+    $check = filter_input(INPUT_POST, "redeemcode");
+    $realcode = "SELECT code from orders WHERE code == '".$check."' ";	
+	
+    $total = 0;
+    $custsql = "SELECT * from orders WHERE code = '".$check."' ";
     $custres = mysqli_query($mysqli,$custsql) or die(mysqli_error($mysqli));
-	$custnumrows = mysqli_num_rows($custres);
-	if($custnumrows != 0)
+    $custnumrows = mysqli_num_rows($custres);
+
+if(isset($_POST['submit_redeem']))
+{
+    if(($custnumrows != 0)&&(strlen($check)>0))
     {       
 		echo "<table cellspacing=10>";
 		while($row = mysqli_fetch_assoc($custres))
@@ -83,20 +101,18 @@ if(isset($_SESSION['SESS_LOGGEDIN']))
 		echo "<td>";
 		echo "</td>";
 		echo "</tr>";
+		echo "</table>";	
 		}
-		echo "</table>";		
     }
     else
 	{
-		echo "<strong>No orders</strong>";
+		echo "<strong>Incorrect code or cannot find gift from the code</strong>";
     }
 }
-else
-{
-    echo("<script>alert('Please Login first')</script>");
-    echo("<script>window.location = 'login.php';</script>");
-}
+
+
 ?>
+
 
 </td>
 </table>
@@ -105,3 +121,4 @@ else
 </body>
 
 </html>
+

@@ -51,6 +51,7 @@ div.min {
 <tr><td><a href="myaccount.php"><u>Change User Information</u></a></td></tr>
 <tr><td><a href="history_mo.php"><u>Purchase History</u></a></td></tr>
 <tr><td><a href="downloads_mo.php"><u>Downloads</u></a></td></tr>
+<tr><td><a href="redeem_mo.php"><u>Redeem giftcode</u></a></td></tr>
 
 </table>
 

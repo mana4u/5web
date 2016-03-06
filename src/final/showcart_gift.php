@@ -1,12 +1,25 @@
 <?php
-session_start();
+function random_code( $length = 16 ) {
+    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?";
+    $code = substr( str_shuffle( $chars ), 0, $length );
+    return $code;
+}
+include ("gmail.php");
 require("header.php");
+
 if(isset($_SESSION['SESS_LOGGEDIN']))
 {
 	if(isset($_POST['paypalsubmit']))
-	{
+	{	
+		$email_rec = $_POST['email'];
+		$code = random_code(16);
+		$subject = "This is a gift from your friend!";
+		$message = "<p>This is a gift from your friend to redeem, please visit.<br>
+			Please go to Login/Register->Myaccount->Redeem Giftcard. Thank you.<br>
+			If you have any questions, Please email me back.</p><p>Redeem code: $code</p>";
+			gmail($email_rec, $subject, $message);
 		
-		$upsql = "UPDATE orders SET date = now(), Paid = 1 WHERE id = " . $_SESSION['SESS_ORDERNUM'];
+				$upsql = "UPDATE orders SET date = now(), Paid = 1, code = '".$code."' WHERE id = " . $_SESSION['SESS_ORDERNUM'];
 		$upres = mysqli_query($mysqli,$upsql) or die(mysqli_error($mysqli));
 		$itemssql = "SELECT * FROM orders WHERE id = " . $_SESSION['SESS_ORDERNUM'];
 		unset($_SESSION['SESS_ORDERNUM']);
@@ -14,6 +27,7 @@ if(isset($_SESSION['SESS_LOGGEDIN']))
 		$row = mysqli_fetch_assoc($itemsres);
 		header("Location: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=you%40youraddress.com&item_name=". urlencode($config_sitename)
 		. "+Order&item_number=PROD" . $row['id']."&amount=" . urlencode(sprintf('%.2f',$row['total'])) . "&no_note=1&currency_code=USD&lc=US&submit.x=41&submit.y=15");
+	
 	}
 	
 	$total = 0;
@@ -65,16 +79,26 @@ if(isset($_SESSION['SESS_LOGGEDIN']))
         echo "<td></td>";
         echo "<td></td>";
         echo "<td></td>";
-        echo "<td>TOTAL</td>";
-        echo "<td><strong>$". sprintf('%.2f', $total) . "</strong></td>";
-        echo "<td></td>";
+        echo "<td>TOTAL&nbsp;&nbsp;&nbsp;";
+        echo "<strong>$". sprintf('%.2f', $total) . "</strong></td>";
+                echo "<td></td>";
         echo "</tr>";
-        echo "</table>";
-        echo "<tr>";
-        echo "<td></td>";
-        echo "<td><form action='showcart.php' method='POST'><input type='submit' name='paypalsubmit' value='Pay with PayPal'></form>
-		</td>";
-        echo "</tr>";
+	
+        echo "<form action='showcart_gift.php' method='POST'>
+	<h1>Send gift to your friend</h1>
+	<table>
+	<h3>Please fill email address to send this gift and press Pay with Paypal. <br>Redeem code will be sent to your frined when transaction completed</h3>
+                <tr>
+                    <td>Email</td>
+                    <td><input type='textbox' name='email'></td>
+		</tr>
+	</table>
+
+        <td><form action='showcart_gift.php' method='POST'><input type='submit' name='paypalsubmit' value='Pay with PayPal'></form>
+		</td>
+        </tr>
+	</table>
+	</form>";
         require("footer.php");
     }
 }
@@ -84,3 +108,6 @@ else
     echo("<script>window.location = 'login.php';</script>");
 }
 ?>
+
+
+

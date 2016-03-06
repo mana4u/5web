@@ -29,7 +29,8 @@ require("config.php");
         echo "<a href=login.php>Log In</a> " ;
         }
 	if(isset($_SESSION['SESS_LOGGEDIN'])) {
-		echo "<a href=showcart.php>Shopping Cart</a> -";
+	echo "<a href=showcart.php>Shopping Cart</a> -";
+	echo "<a href=showcart_gift.php>Gift Cart</a> -";
         echo "  <a href=myaccount.php>My Account</a> " ;
 	}
 	if(isset($_SESSION['SESS_ADMINLOGGEDIN'])) {
