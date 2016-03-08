@@ -9,38 +9,42 @@ require("config.php");
 	
 </head>
 <body>	
- 
+
+
     <div id="header">
-        <img src='./images/header.jpg' usemap="#logos">
-		<map name="logos">
-			<area shape="rect" coords="673,96,730,150" href="https://www.facebook.com/EFTDorothy?ref=br_rs" title="Facebook" alt="Facebook" />
-			<area shape="rect" coords="752,96,810,150" href="https://www.youtube.com/channel/UCT2BE3NbSFZPZpYKja4EM5g" title="Youtube" alt="Youtube" />
-			<area shape="rect" coords="830,96,883,150" href="https://twitter.com/eftdorothy" title="Twitter" alt="Twitter" />
-			<area shape="rect" coords="906,96,963,150" href="https://www.linkedin.com/in/dorothybiagioni" title="Linkedin" alt="Linkedin" />
-		</map>
-    </div>
-	
-    <div id="menu">
-        <a href="<?php echo $config_basedir; ?>index.php">Home</a> -
-        <a href="<?php echo $config_basedir; ?>about.php">About me</a> -
-        <a href="<?php echo $config_basedir; ?>products.php">Shop</a> -
+	<div id="name"><h1>Dorothy Biagioni</h1></div>
+	 
+			<div class="SM">
+			<a href="https://www.facebook.com/EFTDorothy" target="_blank"><img class="socialMedia" src="./images/facebook.png"></a>
+			<a href="https://www.instagram.com/coachdorothy" target="_blank"><img class="socialMedia" src="./images/instagram.png"></a>
+			<a href="http://dorothybiagioni.tumblr.com" target="_blank"><img class="socialMedia" src="./images/tumbler.png"></a>
+			<a href="https://ca.linkedin.com/in/dorothybiagioni" target="_blank"><img class="socialMedia" src="./images/in.png"></a>
+			<a href="https://www.youtube.com/channel/UCT2BE3NbSFZPZpYKja4EM5g" target="_blank"><img class="socialMedia" src="./images/youtube.png"></a>
+			<a href="https://twitter.com/eftdorothy" target="_blank"><img class="socialMedia" src="./images/twitter.png"></a>
+  
+</div>
+    <ul id="menu"><div id="menuItems">
+        <li><a href="<?php echo $config_basedir; ?>index.php">Home</a></li>
+        <li><a href="<?php echo $config_basedir; ?>about.php">About</a></li>
+        <li><a href="<?php echo $config_basedir; ?>products.php">Shop</a></li>
         <?php
         if(!isset($_SESSION['SESS_LOGGEDIN']) && !isset($_SESSION['SESS_ADMINLOGGEDIN'])) {
-        echo "<a href=login.php>Log In</a> " ;
+        echo "<li><a href=login.php>Log In</a> " ;
         }
 	if(isset($_SESSION['SESS_LOGGEDIN'])) {
-		echo "<a href=showcart.php>Shopping Cart</a> -";
-        echo "  <a href=myaccount.php>My Account</a> " ;
+		echo "<li><a href=showcart.php>Shopping Cart</a></li> ";
+        echo "  <li><a href=myaccount.php>My Account</a></li> " ;
 	}
 	if(isset($_SESSION['SESS_ADMINLOGGEDIN'])) {
-		echo "<a href=admin.php>Admin Page</a> ";
+		echo "<li><a href=admin.php>Admin Page</a></li> ";
 	}
         ?>
 	<?php
 	if(isset($_SESSION['SESS_LOGGEDIN']) || isset($_SESSION['SESS_ADMINLOGGEDIN'])) {
-        echo " - <a href=logout.php>Log Out</a> " ;
+        echo " <li><a href=logout.php>Log Out</a></li> " ;
         }
 	?>
-    </div>
+	
+    </ul>
     <div id="container">
     <div id="main">

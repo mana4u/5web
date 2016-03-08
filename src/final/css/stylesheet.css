@@ -2,11 +2,11 @@
 /* CSS Document */
 
 body {
-font-family: "trebuchet ms", verdana, sans-serif;
-font-size: 12px;
+font-family: "Palatino Linotype", verdana, sans-serif;
+font-size: 15px;
 line-height: 1.5em;
 color: #333;
-background: #FEFDE0;
+background: #ccb3ff;
 margin: 0;
 padding: 0;
 text-align: center;
@@ -28,7 +28,6 @@ color: #000;
 a:hover, a:active {
 text-decoration: none;
 border-bottom: none;
-color: #000;
 }
 img {
 border: 0;
@@ -81,35 +80,145 @@ border: 0;
 top: 190px;
 width: 100%;
 position: fixed;
-background: #FEFDE0;
+background: #ccb3ff;
 text-align: left;
 height: 750px;
 overflow-y:scroll; 
 }
+
 #menu {
-font-family: "trebuchet ms", verdana, sans-serif;
-font-size: 14px;
+font-family: "Palatino Linotype", verdana, sans-serif;
+font-size: 20px;
 font-weight: bold;
 position: fixed;
-height: 30px;
-top: 160px;
+//height: 60px;
+top: 110px;
 left: 0px;
 width: 100%;
 padding: 0px;
-color: #000000;
-background-color: #eee
+//color: #000000;
 }
+
+
 #header {
 position: fixed;
 top: 0px;
 left: 0px;
 width: 100%;
-background: black;
+height:180px;
+ background-color: #52527a;
 }
-
 
 #main {
 margin: 15px 400px 15px 400px;
-background: #FEFDE0;
 }
 
+ul {
+    list-style-type: none;
+    margin-left: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #8585ad;
+}
+
+li {
+   
+  display: inline-block;
+}
+
+#menuItems{
+
+ width: 100%;
+  text-align: center;
+
+}
+
+li a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 11px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #c2c2d6;
+}
+
+#name{
+	color: #d1d1e0;
+	font-size:27px;
+	margin-top:50px;
+}
+
+.form, .dropdown, #searchform, #main{
+background-color: #ccb3ff;
+}
+
+.textbox { 
+    background: #d1d1e0; 
+    border: 1px double #DDD; 
+    border-radius: 5px; 
+    box-shadow: 0 0 10px #333; 
+    color: #666; 
+    outline: none; 
+    height:35px; 
+    width: 250px; 
+  } 
+  
+ .addToCartButton{
+display: inline-block;
+  border-radius: 2px;
+  background-color: #52527a;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 9px;
+  padding: 0px;
+  width: 70px;
+  height: 30px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin-top: 8px;
+	 
+ }
+  
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #52527a;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  padding: 0px;
+  width: 90px;
+  height: 50px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin-top:8px;
+}
+  
+ .button:hover{
+	 background-color: #d1d1e0;
+	 color: #52527a;
+ }
+ 
+ .product{
+background-color: #668cff;
+ }
+ 
+ col2{
+margin-left: -40px;
+ }
+ 
+.socialMedia{
+	width: 56px;
+	height: 56px;
+}
+
+.SM{
+	
+	margin-top: -75px;
+	margin-left: 900px;
+}
