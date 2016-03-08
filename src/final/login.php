@@ -1,21 +1,21 @@
 <?php
-session_start();
 require("config.php");
+require("header.php");
 if(isset($_SESSION['SESS_LOGGEDIN']))
 {
 header("Location: index.php");
 }
-
 if(isset($_POST['submit_reg'])){
     if ((!filter_input(INPUT_POST, 'firstname'))
         || (!filter_input(INPUT_POST, 'lastname'))
         || (!filter_input(INPUT_POST, 'email'))
         || (!filter_input(INPUT_POST, 'password')))
 		{
-	$message = 'Please fill all information';
+		$message = 'Please fill all information';
         header("Location: http://" .$_SERVER['HTTP_HOST']. $_SERVER['SCRIPT_NAME'] . "?error2=1");
         }
-    else{
+		else
+		{
         $fname = filter_input(INPUT_POST, 'firstname');
         $lname = filter_input(INPUT_POST, 'lastname');
         $password = filter_input(INPUT_POST, 'password');
@@ -28,7 +28,7 @@ if(isset($_POST['submit_reg'])){
 		}
 	
     // Checkbox is selected
-        $emailck = "SELECT count(email) FROM customers WHERE email='$email'";
+        $emailck = "SELECT * FROM customers WHERE email='".$email."'";
         $resultt = mysqli_query($mysqli,$emailck) or die(mysqli_error($mysqli));
 
    	if( $resultt->num_rows == 1 ){
@@ -54,15 +54,9 @@ if(isset($_POST['submit_reg'])){
 	mysqli_close($mysqli);
     }
 
-}else{
-            
-}
-
-
-if(isset($_POST['submit']))
-	{
-	$loginsql = "SELECT id, firstName, lastName FROM customers WHERE email = '".filter_input(INPUT_POST,'email').
-                    "' AND password = "."PASSWORD('".filter_input(INPUT_POST,'password')."');";
+}elseif(isset($_POST['submit'])){
+	$loginsql = "SELECT id, firstName, lastName FROM customers WHERE email = '".filter_input(INPUT_POST,'emaill').
+                    "' AND password = "."PASSWORD('".filter_input(INPUT_POST,'passwordl')."');";
 	$loginres = mysqli_query($mysqli,$loginsql) or die(mysqli_error($mysqli));
 	$numrows = mysqli_num_rows($loginres);
 		if($numrows == 1)
@@ -80,8 +74,8 @@ if(isset($_POST['submit']))
 		}
 		else
 		{
-			$adminloginsql = "SELECT * FROM admin WHERE email = '".filter_input(INPUT_POST,'email').
-                    "' AND password = "."PASSWORD('".filter_input(INPUT_POST,'password')."');";
+			$adminloginsql = "SELECT * FROM admin WHERE email = '".filter_input(INPUT_POST,'emaill').
+                    "' AND password = "."PASSWORD('".filter_input(INPUT_POST,'passwordl')."');";
 			$adminloginres = mysqli_query($mysqli,$adminloginsql) or die(mysqli_error($mysqli));
 			$adminnumrows = mysqli_num_rows($adminloginres);
 			if($adminnumrows == 1)
@@ -97,12 +91,8 @@ if(isset($_POST['submit']))
 	}
 	else
 	{
-	require("header.php");?>	
-
-
-<!DOCTYPE html>
-<html>
-<head>
+		?>	
+	
 <style>
 table.one {
     border: 1px solid grey;
@@ -118,8 +108,7 @@ div.move {
     top:50px;
 }
 </style>
-</head>
-<body>
+
 
 
 <div class="move">
@@ -144,11 +133,11 @@ if(isset($_GET['error']))
 </tr>
 <tr>
             <td>Email</td>
-            <td><input type="email" name="email">
+            <td><input type="email" name="emaill">
         </tr>
         <tr>
             <td>Password</td>
-            <td><input type="password" name="password">
+            <td><input type="password" name="passwordl">
         </tr>
         <tr>
             <td></td>
@@ -161,7 +150,7 @@ if(isset($_GET['error']))
     </td>
 
     <td class="one" valign=center width="30%">
-    <form action="login.php" method="POST">
+   
             <h2 align="center" style="background-color:Khaki">Create New Account</h2>
 
 <?php
@@ -181,14 +170,16 @@ if(isset($_GET['error3']))
 ?>
 
             <table align="center">
+			<form action="login.php" method="POST" name="registration">
             <tr><td>First name</td><td><input type='text' name='firstname' id='firstname' /></td></tr>
             <tr><td>Last name</td><td> <input type="text" name="lastname" id="lastname" /></td></tr>
             <tr><td>Email</td><td> <input type="email" name="email" id="email" /></td></tr>
             <tr><td>Password</td><td> <input type="password" name="password" id="password"/></td></tr> 
 			<tr><td>Newsletter</td><td> <input type="checkbox" name="subscription" id="subscription" /></td></tr>  		
             <tr><td></td><td><input type="submit" name="submit_reg" value="Register" /> </td></tr>
+			</form>
             </table>
-        </form>
+        
     
 </td>
 </tr>
@@ -204,10 +195,35 @@ if(isset($_GET['error3']))
 } 
 if(isset($_SESSION['SESS_LOGGEDIN']))
 {
-header("Location: index.php");
+	if(isset($_SESSION['SESS_PRELOGGEDIN'])){
+		$prodsql = "SELECT * FROM products WHERE id = " . $_SESSION['SESS_PRELOGGEDIN'] . ";";
+		$prodres = mysqli_query($mysqli,$prodsql) or die(mysqli_error($mysqli));
+		$numrows = mysqli_num_rows($prodres);
+		$prodrow = mysqli_fetch_assoc($prodres);
+		if(isset($_SESSION['SESS_ORDERNUM']))
+		{
+		$itemsql = "INSERT INTO orderitems(order_id,product_id) VALUES(". $_SESSION['SESS_ORDERNUM'] . ", ". $_SESSION['SESS_PRELOGGEDIN'] . ")";
+		mysqli_query($mysqli,$itemsql) or die(mysqli_error($mysqli));
+		}else{		
+		$sql = "INSERT INTO orders(customer_id, date) VALUES(". $_SESSION['SESS_USERID'] . ", NOW())";
+		mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
+		$_SESSION['SESS_ORDERNUM'] = mysqli_insert_id($mysqli);
+		$itemsql = "INSERT INTO orderitems(order_id, product_id) VALUES(". $_SESSION['SESS_ORDERNUM']. ", " . $_SESSION['SESS_PRELOGGEDIN'] . ")";
+		mysqli_query($mysqli,$itemsql) or die(mysqli_error($mysqli));
+		}
+
+		$totalprice = $prodrow['price'];
+		$updsql = "UPDATE orders SET total = total + ". $totalprice . " WHERE id = ". $_SESSION['SESS_ORDERNUM'] . ";";
+		mysqli_query($mysqli,$updsql) or die(mysqli_error($mysqli));
+		header("Location: " . $config_basedir . "showcart.php");
+		}else{
+		header("Location: index.php");
+		}
+		
+
 }
 if(isset($_SESSION['SESS_ADMINLOGGEDIN']))
 {
-header("Location: index.php");
+header("Location: admin.php");
 }
 ?>

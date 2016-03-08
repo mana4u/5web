@@ -1,6 +1,7 @@
 <?php
 session_start();
 require("config.php");
+$_SESSION['SESS_PRELOGGEDIN'] = $_GET['id'];
 $prodsql = "SELECT * FROM products WHERE id = " . $_GET['id'] . ";";
 $prodres = mysqli_query($mysqli,$prodsql) or die(mysqli_error($mysqli));
 $numrows = mysqli_num_rows($prodres);
@@ -25,9 +26,12 @@ if(isset($_POST['submit']))
 		echo("<script>alert('Please Login first')</script>");
 		echo("<script>window.location = 'login.php';</script>");
 	}
-$totalprice = $prodrow['price'] * $_POST['amountBox'] ;
+if(isset($_SESSION['SESS_LOGGEDIN']))
+{	
+$totalprice = $prodrow['price'];
 $updsql = "UPDATE orders SET total = total + ". $totalprice . " WHERE id = ". $_SESSION['SESS_ORDERNUM'] . ";";
 mysqli_query($mysqli,$updsql) or die(mysqli_error($mysqli));
+}
 header("Location: " . $config_basedir . "showcart.php");
 }
 require("footer.php");

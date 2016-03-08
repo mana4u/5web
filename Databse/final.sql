@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 16-03-04 07:19
--- 서버 버전: 5.6.17
+-- Generation Time: Mar 08, 2016 at 10:11 AM
+-- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- 테이블 구조 `admin`
+-- Table structure for table `admin`
 --
 
 CREATE TABLE IF NOT EXISTS `admin` (
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- 테이블의 덤프 데이터 `admin`
+-- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`email`, `password`) VALUES
@@ -42,40 +42,45 @@ INSERT INTO `admin` (`email`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
--- 테이블 구조 `customers`
+-- Table structure for table `customers`
 --
 
 CREATE TABLE IF NOT EXISTS `customers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `firstName` varchar(50) NOT NULL,
   `lastName` varchar(50) NOT NULL,
-  `phone` varchar(20) NOT NULL,
   `email` varchar(150) NOT NULL,
   `password` varchar(50) NOT NULL,
   `newsletter` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
--- 테이블의 덤프 데이터 `customers`
+-- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`id`, `firstName`, `lastName`, `phone`, `email`, `password`, `newsletter`) VALUES
-(4, '1', '1', '1', '1@gmail.com', '*E6CC90B878B948C35E92B003C792C46C58C4AF40', 0),
-(5, '3', '3', '3', '3@gmail.com', '*C4E74DDDC9CC9E2FDCDB7F63B127FB638831262E', 0),
-(6, '4', '4', '4', '4@gmail.com', '*908BE2B7EB7D7567F7FF98716850F59BA69AA9DB', 0),
-(7, '2', '2', '2503006248', '2@gmail.com', '*12033B78389744F3F39AC4CE4CCFCAD6960D8EA0', 0),
-(8, '6', '6', '6', '6@gmail.com', '*C3AB9ECDF746570BBF9DCAA9DB3586D25956DC93', 0),
-(9, 'Junghan', 'Kim', '2503006248', 'kmana4u@gmail.com', '*3012C423C09F943B5387A4E2E41F846F00D67B61', 0),
-(10, 'dasd', 'kim', '2332323', '1mana4u@naver.com', '*A4B6157319038724E3560894F7F932C8886EBFCF', 0),
-(12, '123', '123', '123', '123@gmail.com', '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257', 0),
-(13, 'ahyoung', 'in', '250', 'ahyungss@hotmail.com', '*776141857D7F3C23D905BFC4C7CF4CE64D19CE2E', 1);
+INSERT INTO `customers` (`id`, `firstName`, `lastName`, `email`, `password`, `newsletter`) VALUES
+(4, '1', '1', '1@gmail.com', '*E6CC90B878B948C35E92B003C792C46C58C4AF40', 0),
+(5, '3', '3', '3@gmail.com', '*C4E74DDDC9CC9E2FDCDB7F63B127FB638831262E', 0),
+(6, '4', '4', '4@gmail.com', '*908BE2B7EB7D7567F7FF98716850F59BA69AA9DB', 0),
+(7, '2', '2', '2@gmail.com', '*12033B78389744F3F39AC4CE4CCFCAD6960D8EA0', 0),
+(8, '6', '6', '6@gmail.com', '*C3AB9ECDF746570BBF9DCAA9DB3586D25956DC93', 0),
+(9, 'Junghan', 'Kim', 'kmana4u@gmail.com', '*3012C423C09F943B5387A4E2E41F846F00D67B61', 0),
+(10, 'dasd', 'kim', '1mana4u@naver.com', '*A4B6157319038724E3560894F7F932C8886EBFCF', 0),
+(12, '123', '123', '123@gmail.com', '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257', 1),
+(13, '23', '12', '32@naver.com', '*A4B6157319038724E3560894F7F932C8886EBFCF', 0),
+(20, '123', '23', '12323a2@naver.com', '*A4B6157319038724E3560894F7F932C8886EBFCF', 0),
+(21, '123', '23123', 'x2323@naver.com', '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257', 0),
+(24, '323', '1232', '2c23@naver.com', '*962A429C7BB4542923310C7E4A156A3F7FE97CC6', 0),
+(26, '23x2', '23sd', 'x2234@gmail.com', '*C1E00ADB0335EFCA26901C4514571AB2EA245C42', 1),
+(27, 'x23', '23213', '2312@naver.com', '*B0C0F6DA81AA3819708C74D601828DAA572BDDE6', 0),
+(28, 'nasd2', 'rkwek', 'nasd@naver.com', '*A4B6157319038724E3560894F7F932C8886EBFCF', 1);
 
 -- --------------------------------------------------------
 
 --
--- 테이블 구조 `newsletter`
+-- Table structure for table `newsletter`
 --
 
 CREATE TABLE IF NOT EXISTS `newsletter` (
@@ -84,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `newsletter` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- 테이블의 덤프 데이터 `newsletter`
+-- Dumping data for table `newsletter`
 --
 
 INSERT INTO `newsletter` (`email`) VALUES
@@ -93,7 +98,7 @@ INSERT INTO `newsletter` (`email`) VALUES
 -- --------------------------------------------------------
 
 --
--- 테이블 구조 `orderitems`
+-- Table structure for table `orderitems`
 --
 
 CREATE TABLE IF NOT EXISTS `orderitems` (
@@ -101,10 +106,10 @@ CREATE TABLE IF NOT EXISTS `orderitems` (
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=96 ;
 
 --
--- 테이블의 덤프 데이터 `orderitems`
+-- Dumping data for table `orderitems`
 --
 
 INSERT INTO `orderitems` (`id`, `order_id`, `product_id`) VALUES
@@ -140,12 +145,36 @@ INSERT INTO `orderitems` (`id`, `order_id`, `product_id`) VALUES
 (46, 61, 1),
 (47, 63, 1),
 (48, 63, 2),
-(49, 63, 3);
+(49, 63, 3),
+(70, 64, 1),
+(72, 64, 5),
+(73, 64, 1),
+(74, 64, 1),
+(76, 66, 0),
+(77, 67, 2),
+(78, 68, 2),
+(79, 69, 2),
+(80, 70, 0),
+(81, 71, 3),
+(82, 72, 3),
+(83, 73, 3),
+(84, 74, 3),
+(85, 75, 3),
+(86, 76, 3),
+(87, 77, 0),
+(88, 78, 0),
+(89, 79, 3),
+(90, 80, 0),
+(91, 81, 0),
+(92, 82, 0),
+(93, 83, 3),
+(94, 84, 3),
+(95, 85, 2);
 
 -- --------------------------------------------------------
 
 --
--- 테이블 구조 `orders`
+-- Table structure for table `orders`
 --
 
 CREATE TABLE IF NOT EXISTS `orders` (
@@ -155,10 +184,10 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `total` float NOT NULL,
   `Paid` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=64 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=86 ;
 
 --
--- 테이블의 덤프 데이터 `orders`
+-- Dumping data for table `orders`
 --
 
 INSERT INTO `orders` (`id`, `customer_id`, `date`, `total`, `Paid`) VALUES
@@ -183,12 +212,18 @@ INSERT INTO `orders` (`id`, `customer_id`, `date`, `total`, `Paid`) VALUES
 (60, 4, '2016-02-18 22:46:35', 30.99, 1),
 (61, 4, '2016-02-26 01:18:24', 216.93, 1),
 (62, 4, '2016-02-18 22:51:58', 30.99, 1),
-(63, 12, '2016-03-02 17:22:22', 87.98, 1);
+(63, 12, '2016-03-02 17:22:22', 87.98, 1),
+(64, 12, '2016-03-08 01:05:25', 158.96, 1),
+(68, 12, '2016-03-07 23:06:27', 0, 1),
+(69, 12, '2016-03-07 23:09:12', 42.99, 1),
+(79, 12, '2016-03-08 00:09:59', 4, 1),
+(84, 12, '2016-03-08 00:40:15', 4, 1),
+(85, 12, '2016-03-08 01:05:18', 40.99, 1);
 
 -- --------------------------------------------------------
 
 --
--- 테이블 구조 `products`
+-- Table structure for table `products`
 --
 
 CREATE TABLE IF NOT EXISTS `products` (
@@ -201,18 +236,45 @@ CREATE TABLE IF NOT EXISTS `products` (
   `promotion` tinyint(4) NOT NULL,
   `freebie` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- 테이블의 덤프 데이터 `products`
+-- Dumping data for table `products`
 --
 
 INSERT INTO `products` (`id`, `name`, `cata`, `description`, `image`, `price`, `promotion`, `freebie`) VALUES
-(1, 'C++', 2, 'Best C++ ', 'c.jpg', 42.99, 1, 0),
+(1, 'C++', 2, 'Best C++ x', 'c.jpg', 42.99, 1, 0),
 (2, 'JAVA', 2, 'Best JAVA Book', 'java.jpg', 40.99, 0, 1),
 (3, 'DVD', 1, 'DVD', 'LI.png', 4, 0, 0),
 (4, 'dummy', 1, 'dummy', 'twitter.png', 5.99, 0, 0),
 (5, 'Youtube', 3, 'video', 'youtube.png', 29.99, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `redeem`
+--
+
+CREATE TABLE IF NOT EXISTS `redeem` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_email` varchar(40) NOT NULL,
+  `pro_id` int(11) NOT NULL,
+  `code` varchar(16) NOT NULL,
+  `used` tinyint(11) NOT NULL,
+  `price` float NOT NULL,
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code` (`code`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+
+--
+-- Dumping data for table `redeem`
+--
+
+INSERT INTO `redeem` (`id`, `user_email`, `pro_id`, `code`, `used`, `price`, `date`) VALUES
+(10, '123@gmail.com', 3, ',-VgM#wscbiN6r$_', 1, 4, '2016-03-07 22:50:58'),
+(11, '123@gmail.com', 2, '018yXJ@+gjk93;5O', 1, 40.99, '2016-03-08 01:04:42');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

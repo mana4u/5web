@@ -1,5 +1,4 @@
 <?php
-session_start();
 require("header.php");
 echo "<h1>Order Details</h1>";
 

@@ -1,6 +1,9 @@
 <?php
-require("header.php"); 
+require("header.php");
+require('class.phpmailer.php');
+include("class.smtp.php");
 		echo "<h3><a href=adminhistory.php>Completed Orders</a> -";
+		echo " <a href=gifthistory.php>Purchased Gift Cards</a> -";
         echo " <a href=addProduct.php>Add a Product</a> -";
 		echo " <a href=editProduct.php>Edit/Delete a Product</a> -";
 		echo " <a href=sendemail.php>Email</a></h3>";
@@ -27,10 +30,63 @@ if(isset($_POST['submit'])){
 			$email = $_POST['Recipient'];
 			$subject = $_POST['Subject'];	 
 			$message = $_POST['Message'];
-				gmail($email, $subject, $message);
+			$d='upload/';
+			$de=$d . basename($_FILES['file']['name']);
+			move_uploaded_file($_FILES["file"]["tmp_name"], $de);
+			$fileName = $_FILES['file']['name'];
+			$filePath = $de;
+			
+			$mail = new PHPMailer();
+			$mail->CharSet = "UTF-8";
+			// telling the class to use SMTP
+			$mail->IsSMTP();
+			// enables SMTP debug information (for testing)
+			// 1 = errors and messages
+			// 2 = messages only
+			$mail->SMTPDebug  = 0;
+			// enable SMTP authentication
+			$mail->IsHTML(true);
+			$mail->SMTPAuth   = true;
+			// sets the prefix to the servier
+			$mail->SMTPSecure = "ssl";
+			// sets GMAIL as the SMTP server
+			$mail->Host       = "smtp.gmail.com";
+			// set the SMTP port for the GMAIL server
+			$mail->Port       = 465;
+			// GMAIL username
+			$mail->Username   = "cosc213@gmail.com";// use this for now.
+			// GMAIL password
+			$mail->Password   = "lamp213@okc";// use this for now.
+			//Set reply-to email this is your own email, not the gmail account 
+			//used for sending emails
+			$mail->SetFrom('admin@admin.com');//need to change later
+			$mail->FromName = "Dorothy Biagioni";//need to change later
+			// Mail Subject
+			$mail->Subject    = $subject;
+
+			//Main message
+			$mail->Body = $message;
+
+			//Your email, here you will receive the messages from this form. 
+			//This must be different from the one you use to send emails, 
+			//so we will just pass email from functions arguments
+			$addresses = explode(',', $email);
+			foreach ($addresses as $address) {
+			$mail->AddAddress($address);
+			}
+			$mail->AddAttachment($filePath, $fileName);
+			if(!$mail->Send()) 
+			{
+				//couldn't send
+				return false;
+			} 
+			else 
+			{
 				echo("<script>alert('Emails have been sent');</script>");
 				echo("<script>location.href = 'sendemail.php';</script>");
-             }else {
+			}
+			
+            }else {
                  echo("<script>alert('please fill All the forms');</script>");
                  echo("<script>location.href = 'sendemail.php';</script>");
              }
@@ -56,16 +112,16 @@ function None() {
   <script type="text/javascript">
 tinymce.init({
   selector: 'textarea',
-  height: 400,
+  height: 500,
   theme: 'modern',
   plugins: [
     'advlist autolink lists link image charmap print preview hr anchor pagebreak',
     'searchreplace wordcount visualblocks visualchars code fullscreen',
-    'insertdatetime media nonbreaking save table contextmenu directionality',
-    'emoticons template paste textcolor colorpicker textpattern imagetools'
+    'insertdatetime nonbreaking save table contextmenu directionality',
+    'emoticons template paste textcolor colorpicker textpattern imagetools jbimages'
   ],
-  toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-  toolbar2: 'print preview media | forecolor backcolor emoticons',
+  toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image jbimages',
+  toolbar2: 'preview | forecolor backcolor ',
   image_advtab: true,
   templates: [
     { title: 'Test template 1', content: 'Test 1' },
@@ -80,10 +136,11 @@ tinymce.init({
 </head>
 <table>
 <tr><td>Select</td><td><button onclick="Sub()">Subscriber</button> <button onclick="Customer()">Customers</button> <button onclick="Everyone()">Everyone</button> <button onclick="None()">None</button></td></tr>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <tr><td>Recipient</td><td><input type="text" name="Recipient" id="recep" size="129"></input></td></tr>
 <tr><td>Subject</td><td><input type="text" name="Subject" size="129"></input></td></tr>
-<tr><td>Message</td><td><textarea rows="20" id="mytextarea" name ="Message" cols="130"></textarea></input></td></tr>
+<tr><td>Message</td><td><textarea rows="20" id="editor1" name ="Message" cols="130"></textarea></input></td></tr>
+<tr><td>Attachment</td><td><input type="file" name="file"></td></tr>
 <tr><td></td><td><input type='submit' name='submit' value='Send Emails'></td></tr>
 </form>
 </table>

@@ -1,41 +1,12 @@
 <?php
-
-if(isset($_POST['submit_gift']))
-{
-session_start();
-require("config.php");
-$prodsql = "SELECT * FROM products WHERE id = " . $_GET['id'] . ";";
-$prodres = mysqli_query($mysqli,$prodsql) or die(mysqli_error($mysqli));
-$numrows = mysqli_num_rows($prodres);
-$prodrow = mysqli_fetch_assoc($prodres);
-
-	if(isset($_SESSION['SESS_ORDERNUM']))
-	{
-	$itemsql = "INSERT INTO orderitems(order_id,product_id) VALUES(". $_SESSION['SESS_ORDERNUM'] . ", ". $_GET['id'] . ")";
-	mysqli_query($mysqli,$itemsql) or die(mysqli_error($mysqli));
-	}
-	elseif(isset($_SESSION['SESS_USERID']))
-	{	
-	$sql = "INSERT INTO orders(customer_id, date) VALUES(". $_SESSION['SESS_USERID'] . ", NOW())";
-	mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
-	$_SESSION['SESS_ORDERNUM'] = mysqli_insert_id($mysqli);
-	$itemsql = "INSERT INTO orderitems(order_id, product_id) VALUES(". $_SESSION['SESS_ORDERNUM']. ", " . $_GET['id'] . ")";
-	mysqli_query($mysqli,$itemsql) or die(mysqli_error($mysqli));	
-	}
-	else
-	{
-		echo("<script>alert('Please Login first')</script>");
-		echo("<script>window.location = 'login.php';</script>");
-	}
-$totalprice = $prodrow['price'] * $_POST['amountBox'] ;
-$updsql = "UPDATE orders SET total = total + ". $totalprice . " WHERE id = ". $_SESSION['SESS_ORDERNUM'] . ";";
-mysqli_query($mysqli,$updsql) or die(mysqli_error($mysqli));
-header("Location: " . $config_basedir . "showcart_gift.php");
+function random_code( $length = 16 ) {
+    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?";
+    $code = substr( str_shuffle( $chars ), 0, $length );
+    return $code;
 }
-
-
+include ("gmail.php");
+require("header.php");
 if(isset($_POST['submit'])){
-	require("header.php");
 	$name=$_POST['name']; 
 	$prodcatsql = "SELECT * FROM products WHERE name like '%" . $name . "%' OR description LIKE '%" . $name  ."%' OR cata LIKE '%" . $name  ."%' OR price LIKE '%" . $name  ."%'";
 	$prodcatres = mysqli_query($mysqli,$prodcatsql) or die(mysqli_error($mysqli));
@@ -81,22 +52,38 @@ if(isset($_POST['submit'])){
     echo "<tr>";
     echo "<td><strong>$". sprintf('%.2f', $prodrow['price']) . "</strong></td>";
     echo "<td><input type='submit' name='submit' value='Add to basket'></td>";
-    echo "</tr>"; 
-    echo "</form>";
-    echo "<form action='products.php?id=". $prodrow['id'] . "' method='POST'>";
-    echo "<tr>";
-    echo "<td><input type='submit' name='submit_gift' value='Buy as Gift'></td>";
-    echo "</tr>"; 
+    echo "</tr>";
     echo "</table>";
     echo "</form>";
+	if(isset($_SESSION['SESS_LOGGEDIN'])) {
+	echo "<form action='products.php' method='POST'>";
+	echo "<td><input type='hidden' name='pro_id' value='".$prodrow['id']."'><input type='hidden' name='pro_price' value='".$prodrow['price']."'><input type='submit' name='submitg' value='Gift'></td>";
+	echo "</form>";
+	}
     echo "</td>";
     echo "</tr>";
     }
     echo "</table>";
 	}
-}else{
+}elseif(isset($_POST['submitg'])){
+		$pro_id=$_POST['pro_id'];
+		$pro_price=$_POST['pro_price'];
+		$usersql = "SELECT * From customers WHERE id = ". $_SESSION['SESS_USERID'];
+		$userres = mysqli_query($mysqli,$usersql) or die(mysqli_error($mysqli));
+		$userrow = mysqli_fetch_assoc($userres);
+		$email_rec = $userrow['email'];
+		$code = random_code(16);
+		$subject = "This is a gift Card code";
+		$message = "Please go to Login/Register->Myaccount->Redeem Giftcard. Thank you.<br>
+			If you have any questions, Please email me back.</p><p>Redeem code: $code</p>";
+			gmail($email_rec, $subject, $message);
+		$sql = "INSERT INTO redeem VALUES('','".$email_rec."','".$pro_id."','".$code."','0','".$pro_price."',NOW())";
+		mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
+		header("Location: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=you%40youraddress.com&item_name=". urlencode($config_sitename)
+		. "+Order&item_number=Gift-" . $userrow['lastName']."&amount=" . urlencode(sprintf('%.2f',$pro_price)) . "&no_note=1&currency_code=CAD&lc=US&submit.x=41&submit.y=15");
+}
+else{
 	
-require("header.php");
 if(empty($_GET['cata']))
 {
 	$prodcatsql = "SELECT * FROM products;";
@@ -147,16 +134,16 @@ else
     echo "<table cellpadding='10'>";
     echo "<tr>";
     echo "<td><strong>$". sprintf('%.2f', $prodrow['price']) . "</strong></td>";
-    echo "<td><input type='submit' name='submit' value='Add to basket'></td>";
+    echo "<td><input type='submit' name='submit' value='Add To Basket'></td>";
+	echo "</form>";
+	if(isset($_SESSION['SESS_LOGGEDIN'])) {
+	echo "<form action='products.php' method='POST'>";
+	echo "<td><input type='hidden' name='pro_id' value='".$prodrow['id']."'><input type='hidden' name='pro_price' value='".$prodrow['price']."'><input type='submit' name='submitg' value='Gift'></td>";
+	echo "</form>";
+	}
     echo "</tr>";
-    echo "</form>";
-    echo "<form action='products.php?id=". $prodrow['id'] . "' method='POST'>";
-    echo "<tr>";
-    echo "<td></td>";
-    echo "<td><input type='submit' name='submit_gift' value='Buy as Gift'></td>";
-    echo "</tr>"; 
     echo "</table>";
-    echo "</form>";
+   
     echo "</td>";
     echo "</tr>";
     }

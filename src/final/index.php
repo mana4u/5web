@@ -11,7 +11,7 @@ if(isset($_POST['buynowsubmit']))
 		$_SESSION['OLD_SESS_ORDERNUM'] = $_SESSION['SESS_ORDERNUM'];
 		$_SESSION['SESS_ORDERNUM'] = mysqli_insert_id($mysqli);
 		$buyid = $_SESSION['SESS_ORDERNUM'];
-		$itemsql = "INSERT INTO orderitems(order_id, product_id, quantity) VALUES(". $_SESSION['SESS_ORDERNUM']. ", " . $_SESSION['buynow_id'] . ",1)";
+		$itemsql = "INSERT INTO orderitems(order_id, product_id) VALUES(". $_SESSION['SESS_ORDERNUM']. ", " . $_SESSION['buynow_id'] . ")";
 		mysqli_query($mysqli,$itemsql) or die(mysqli_error($mysqli));
 		$_SESSION['SESS_ORDERNUM'] = $_SESSION['OLD_SESS_ORDERNUM'];		
 		header("Location: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=you%40youraddress.com&item_name=". urlencode($config_sitename)
@@ -82,7 +82,7 @@ else
 
 if($fnumrows == 0)
 {
-    echo "<h1>No Current Special</h1>";
+    echo "<h1>No Current FreeBie</h1>";
 }
 
 else
@@ -102,8 +102,8 @@ else
     echo "</form>";
     echo "<h2>" . $fprodrow['name'] . "</h2>";
     echo "<p>" . $fprodrow['description']. "</p>";
-	$_SESSION['buynow_price'] = 0;
-	echo "<strong>$" . sprintf('%.2f', $_SESSION['buynow_price']) . "</strong></P>";
+	
+	echo "<strong>$" . sprintf('%.2f', 0) . "</strong></P>";
 	echo "<p><h2><form action='index.php' method='POST'><input type='submit' name='buynowsubmit' value='Buy Now'></form>
 		  </h2></p>";
 	echo "</td>";

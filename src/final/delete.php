@@ -10,7 +10,6 @@ $prodrow = mysqli_fetch_assoc($prodres);
 $ssql = "SELECT * from orderitems WHERE id = ". $_GET['id'];
 $res = mysqli_query($mysqli,$ssql) or die(mysqli_error($mysqli));
 $resrow = mysqli_fetch_assoc($res);
-$orderID = $resrow[order_id];
 
 $sql = "DELETE FROM orderitems WHERE id = " . $_GET['id'];
 $del=mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));

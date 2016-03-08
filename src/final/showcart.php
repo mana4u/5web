@@ -1,5 +1,4 @@
 <?php
-session_start();
 require("header.php");
 if(isset($_SESSION['SESS_LOGGEDIN']))
 {
@@ -70,11 +69,8 @@ if(isset($_SESSION['SESS_LOGGEDIN']))
         echo "<td></td>";
         echo "</tr>";
         echo "</table>";
-        echo "<tr>";
-        echo "<td></td>";
-        echo "<td><form action='showcart.php' method='POST'><input type='submit' name='paypalsubmit' value='Pay with PayPal'></form>
-		</td>";
-        echo "</tr>";
+        echo "<p><h2><form action='showcart.php' method='POST'><input type='submit' name='paypalsubmit' value='Pay with PayPal'></form>
+		</h2></p>";
         require("footer.php");
     }
 }

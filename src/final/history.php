@@ -1,5 +1,4 @@
 <?php
-session_start();
 require("header.php");
 if(isset($_SESSION['SESS_LOGGEDIN']))
 {
