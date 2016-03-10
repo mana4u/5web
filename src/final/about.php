@@ -35,7 +35,7 @@ require("header.php");
 <input name="vname" placeholder="Your Name" type="text" value=""></br>
 <input name="vemail" placeholder="Your Email" type="text" value=""></br>
 <input name="sub" placeholder="Subject" type="text" value=""></br>
-<textarea name="msg" placeholder="Type your text here..."></textarea></br>
+<textarea name="msg" placeholder="Type your text here..." rows="10" cols="90"></textarea></br>
 <input id="send" name="submit" type="submit" value="Send Feedback">
 </form>
 </div>
