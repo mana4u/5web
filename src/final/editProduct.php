@@ -14,16 +14,18 @@ if(isset($_POST['submit'])){
 			$name = $_POST['name'];
 			$description = $_POST['des'];	 
 			$price = $_POST['price'];
+                        $freebie = $_POST['freebie'];
+                        $special = $_POST['special'];
 			$target_path = "images/";
 			$target_path = $target_path . basename( $_FILES['uploadedfile']['name']);
 			move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path);	
 			$image = basename( $_FILES['uploadedfile']['name']);
 			if(empty($image)){
-			$updateprodsql = "update products SET name = '".$name."', description = '".$description."', price = '".$price."' WHERE id = ".$id.";";
-			$updateprodres = mysqli_query($mysqli,$updateprodsql) or die(mysqli_error($mysqli));			
-			}
+                                $updateprodsql = "update products SET name = '".$name."', description = '".$description."', price = '".$price."', freebie = '".$freebie."', promotion = '".$special."' WHERE id = ".$id.";";
+                                $updateprodres = mysqli_query($mysqli,$updateprodsql) or die(mysqli_error($mysqli));			
+                        }
 			else{
-			$updateprodsql = "update products SET name = '".$name."', description = '".$description."', price = '".$price."', image = '".$image."' WHERE id = ".$id.";";
+			$updateprodsql = "update products SET name = '".$name."', description = '".$description."', price = '".$price."', freebie = '".$freebie."', promotion = '".$special."' image = '".$image."' WHERE id = ".$id.";";
 			$updateprodres = mysqli_query($mysqli,$updateprodsql) or die(mysqli_error($mysqli));			
 			}
 				
@@ -67,7 +69,9 @@ else
     echo "<table cellpadding='10'>";
     echo "<tr>";
     echo "<td><strong>$<input type='text' name='price' size='4' value='". sprintf('%.2f', $prodrow['price']) . "'></input></strong></td>";
-    echo "<td><input type='submit' name='submit' value='Edit a product'></td>";
+    echo "<td><strong>freebie: </strong></td><td><input type='text' name='freebie' size='1' value='".$prodrow['freebie']."'></td></tr>";
+    echo "<tr><td></td><td><strong>special: </strong></td><td><input type='text' name='special' size='1' value='".$prodrow['promotion']."'></td></tr>";
+    echo "<tr><td><input type='submit' name='submit' value='Edit a product'></td>";
     echo "</tr>";
     echo "</table>";
     echo "</form>";
