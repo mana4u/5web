@@ -18,16 +18,13 @@ if(isset($_POST['submit_iden'])){
         $lname = filter_input(INPUT_POST, 'field_username2');
 
  	if ((!preg_match("/\w+/",$fname))&&(preg_match("/\w+/",$lname))){
-	echo("<script>alert('Firstname must not be blank and contain only letters, numbers and underscores.');</script>");
-	echo("<script>location.href = 'myaccount.php';</script>");
+	header("Location: http://" .$_SERVER['HTTP_HOST']. $_SERVER['SCRIPT_NAME'] . "?error4=1");
 	}
 	else if ((preg_match("/\w+/",$fname))&&(!preg_match("/\w+/",$lname))){
-	echo("<script>alert('Lastname must not be blank and contain only letters, numbers and underscores.');</script>");
-	echo("<script>location.href = 'myaccount.php';</script>");
+	header("Location: http://" .$_SERVER['HTTP_HOST']. $_SERVER['SCRIPT_NAME'] . "?error5=1");
 	}
 	else if ((!preg_match("/\w+/",$fname))&&(!preg_match("/\w+/",$lname))){
-	echo("<script>alert('Lastname and firstname must not be blank and contain only letters, numbers and underscores.');</script>");
-	echo("<script>location.href = 'myaccount.php';</script>");
+	header("Location: http://" .$_SERVER['HTTP_HOST']. $_SERVER['SCRIPT_NAME'] . "?error6=1");
 	}
 	else{
 
@@ -55,16 +52,13 @@ if(isset($_POST['submit_pw'])){
         $password_new = filter_input(INPUT_POST, 'field_pwd2');
 
 	if ((!preg_match("/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/",$password_old))&&(($password_old!=$password_new))){
-	echo("<script>alert('password validation fail and does not match.');</script>");
-	echo("<script>location.href = 'myaccount.php';</script>");
+	header("Location: http://" .$_SERVER['HTTP_HOST']. $_SERVER['SCRIPT_NAME'] . "?error1=1");
 	}
 	elseif ((preg_match("/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/",$password_old))&&(($password_old!=$password_new))){
-	echo("<script>alert('password does not match.');</script>");
-	echo("<script>location.href = 'myaccount.php';</script>");
+	header("Location: http://" .$_SERVER['HTTP_HOST']. $_SERVER['SCRIPT_NAME'] . "?error2=1");
 	}
 	elseif ((!preg_match("/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/",$password_old))&&(($password_old==$password_new))){
-	echo("<script>alert('password validation fail.');</script>");
-	echo("<script>location.href = 'myaccount.php';</script>");
+	header("Location: http://" .$_SERVER['HTTP_HOST']. $_SERVER['SCRIPT_NAME'] . "?error3=1");
 	}
 	
 	else {
@@ -101,6 +95,15 @@ if(isset($_POST['submit_news'])){
 	}
 }
 
+
+if(isset($_POST['cancel1'])){
+    echo("<script>location.href = 'myaccount.php';</script>");
+}
+
+if(isset($_POST['cancel2'])){
+    echo("<script>location.href = 'myaccount.php';</script>");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -120,15 +123,14 @@ div.move {
     top:50px;
 }
 div.min {
-    height: 360px;
+    height: 450px;
 }
 
 </style>
 <body>
 
-<div class="move">
-
-<table class="one" align=center style = "width:60%">
+<div class = "move">
+<table class="one" style = "width:60%">
 <tr>
 <td class="one" bgcolor="#fff4b3" valign=top width="20%">
 
@@ -156,12 +158,32 @@ div.min {
 <form name="myForm" action="" method="post">
 <h3>Identification</h3>
 <tr><td>Email Address: <?php echo $userrow['email'];?> </td></tr>
+<?php
+if(isset($_GET['error4'])) 
+{
+    echo "<p><font color='red'><strong>Firstname must not be blank and contain only letters, numbers and underscores.</strong></font></p>";
+    echo "\n";
+}
+?>
+<?php
+if(isset($_GET['error5'])) 
+{
+    echo "<p><font color='red'><strong>Lastname must not be blank and contain only letters, numbers and underscores.</strong></font></p>";
+    echo "\n";
+}
+?>
+<?php
+if(isset($_GET['error6'])) 
+{
+    echo "<p><font color='red'><strong>Lastname and firstname must not be blank and contain only letters, numbers and underscores.</strong></font></p>";
+    echo "\n";
+}
+?>
 <tr><td>First name: <input type="text" name="field_username1" id="field_username1" value= "<?php echo $userrow['firstName'];?>"/></td></tr>
 <tr><td>Last name: <input type="text" name="field_username2" id="field_username2" value= "<?php echo $userrow['lastName'];?>"/></td></tr>
 
 <tr><td><input type="submit" name="submit_iden" value="Change Username"/>
-<form action="myaccount.php">
-	<input type="submit" value="Cancel"></td></tr>
+	<input type="submit" name="cancel1" value="Cancel"></td></tr>
 </form>
 </table>
 
@@ -170,10 +192,33 @@ div.min {
 <table>
 <form id="myForm3" action="" method="post">
 <h3>Change Password</h3>
+<?php
+if(isset($_GET['error1'])) 
+{
+    echo "<p><font color='red'><strong>Password does not match. Password must be at least one number, one lowercase, one uppercase letter and at least six characters.</strong></font></p>";
+    echo "\n";
+}
+?>
+<?php
+if(isset($_GET['error2'])) 
+{
+    echo "<p><font color='red'><strong>Password does not match.</strong></font></p>";
+    echo "\n";
+}
+?>
+<?php
+if(isset($_GET['error3'])) 
+{
+    echo "<p><font color='red'><strong>Password must be at least one number, one lowercase, one uppercase letter and at least six characters.</strong></font></p>";
+    echo "\n";
+}
+?>
 <tr><td>Please enter new password: <input type="password" id="field_pwd1" name="field_pwd1" style="width:150px"></td></tr>
 <tr><td>Please re-enter new password: <input type="password" id="field_pwd2" name="field_pwd2" style="width:150px"></td></tr>
 <tr><td><input type="submit" name="submit_pw" value="Change my password" />
-<button type="cancel">Cancel</button></td></tr>
+<form action="myaccount.php">
+	<input type="submit" name="cancel2" value="Cancel"></td></tr>
+</form>
 </form>
 </table>
 

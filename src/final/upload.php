@@ -2,7 +2,7 @@
 require("header.php");
 if(isset($_SESSION['SESS_ADMINLOGGEDIN'])){
 	
-	if ((!filter_input(INPUT_POST, 'name')) ||
+	if ((!filter_input(INPUT_POST, 'name2')) ||
 		(!filter_input(INPUT_POST, 'cata')) ||
 		(!filter_input(INPUT_POST, 'description'))||
 		(!filter_input(INPUT_POST, 'price')))
@@ -14,12 +14,12 @@ if(isset($_SESSION['SESS_ADMINLOGGEDIN'])){
 		$target_path = "images/";
 		$target_path = $target_path . basename( $_FILES['uploadedfile']['name']);
 		move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path);				
-		$name = filter_input(INPUT_POST, 'name');
+		$name2 = filter_input(INPUT_POST, 'name2');
 		$cata = filter_input(INPUT_POST, 'cata');
 		$desc = filter_input(INPUT_POST, 'description');
 		$price = filter_input(INPUT_POST, 'price');
 		$image = basename( $_FILES['uploadedfile']['name']);	
-		$addsql = "INSERT INTO products VALUES ('','".$name."','".$cata."','".$desc."','".$image."','".$price."',0)";
+		$addsql = "INSERT INTO products VALUES ('','".$name2."','".$cata."','".$desc."','".$image."','".$price."',0,0)";
 		$res = mysqli_query($mysqli,$addsql) or die(mysqli_error($mysqli));
 		
 			if ($res === TRUE) {

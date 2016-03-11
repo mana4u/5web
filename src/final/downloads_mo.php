@@ -26,7 +26,7 @@ div.move {
     top:50px;
 }
 div.min {
-    height: 360px;
+    height: 450px;
 }
 
 </style>
@@ -34,7 +34,7 @@ div.min {
 
 <div class="move">
 
-<table class="one" align=center style = "width:60%">
+<table class="one" style = "width:60%">
 <tr>
 <td class="one" bgcolor="#fff4b3" valign=top width="20%">
 

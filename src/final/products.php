@@ -117,17 +117,17 @@ else
 	    echo '<input  type="submit" name="submit" value="Search"> ';
 	    echo '</form></td></table>';
 	
-    echo "<table width='60%' cellpadding='10'>";
+    echo "<table width='60%' border='0' cellpadding='10'>";
     while($prodrow = mysqli_fetch_assoc($prodcatres))
     {
         echo "<tr align='left' ><td width='20%'>";
         if(empty($prodrow['image'])) {
-		echo "<td width='150px' height='150px'><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/dummy.jpg' alt='". $prodrow['name'] . "'></a></td>";
+		echo "<td style='border-collapse:collapse; border:1px solid grey' width='150px' height='150px'><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/dummy.jpg' alt='". $prodrow['name'] . "'></a></td>";
 		}	
 		else {
-		echo "<td><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/" . $prodrow['image']. "' alt='". $prodrow['name'] . "' height='150px' width='150px'></a></td>";
+		echo "<td style='border-collapse:collapse; border:1px solid grey'><a href='./item.php?id=". $prodrow['id'] . "'><img src='./images/" . $prodrow['image']. "' alt='". $prodrow['name'] . "' height='150px' width='150px'></a></td>";
 		}
-    echo "<td>";
+    echo "<td style='border-collapse:collapse; border:1px solid grey';>";
     echo "<form action='addtobasket.php?id=". $prodrow['id'] . "' method='POST'>";
     echo "<a href='./item.php?id=". $prodrow['id'] . "'><h2>" . $prodrow['name'] . "</h2></a>";
     echo "<p>" . $prodrow['description'];

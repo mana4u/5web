@@ -113,7 +113,7 @@ div.move {
 
 <div class="move">
 
-    <table class="one" align=center style = "width:60%">
+    <table class="one" style = "width:60%">
     <tr>
     <td class="one" valign=center width="30%">
      

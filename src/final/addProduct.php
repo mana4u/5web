@@ -11,7 +11,7 @@ if(isset($_SESSION['SESS_ADMINLOGGEDIN'])){
     echo "<form action='upload.php' method='POST' enctype='multipart/form-data'>";
     echo "<table>";
     echo "<tr>";
-    echo "<td>name</td><td><input type='Text' name='name' id='name' /></td></tr>";
+    echo "<td>name</td><td><input type='Text' name='name2' id='name2' /></td></tr>";
     echo "<tr><td>catagory</td><td><input type='Text' name='cata' id='cata' /></td></tr>";
     echo "<tr><td>Description</td><td><input type='Text' name='description' id ='description' rows = '3' cols = '80' /></td></tr>";
     echo "<tr><td>Price</td><td><input type='Text' name='price' id='price' /></td></tr>";
