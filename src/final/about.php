@@ -9,7 +9,7 @@ require("header.php");
     </td>
     <tr>
         <td>
-            <img src="images/dorothy.jpg" alt="Picture of Dorothy">
+            <img src="images/dorothy.png" alt="Picture of Dorothy">
         </td>
         <td>
             <p>Is your Life less than what you desire?  Less than what you dream of? <p>
